@@ -1,8 +1,10 @@
-## Infomation
+## Develop Language 
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)  
+
+## Information
 **Creator** : Jimin Lee  
 **Date** : 2024-12-23  
 **Version** : 0.1.0  
-**Develop Language** : ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 
 ## Dependency
 > 1 Library is needed.  
