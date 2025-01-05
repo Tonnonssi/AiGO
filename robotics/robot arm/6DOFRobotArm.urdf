@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<robot name="6DOFRobotArm">
+
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+
+  <link name="base"/>
+
+  <joint name="fixed" type="fixed">
+    <parent link="base"/>
+    <child link="bottom"/>
+  </joint>
+
+  <link name="bottom">
+      <visual>
+            <origin rpy="0.0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="./mesh/6.stl"/>
+            </geometry>
+            <material name="black"/>
+      </visual>
+  </link>
+
+  <joint name="joint1" type="revolute">
+    <!-- 조인트의 새로운 위치를 설정 -->
+    <origin xyz="46.3 27.5 79.5" rpy="0.0 0.0 0.0"/> 
+    <!-- 회전축 유지 (Z축 기준) -->
+    <axis xyz="0.0 0.0 1.0"/> 
+    <!-- 360도 회전을 허용 -->
+    <limit lower="-3.14159" upper="3.14159" effort="30.0" velocity="1.571"/>
+    <parent link="bottom"/>
+    <child link="link1"/>
+  </joint>
+
+  <link name="link1">
+   <inertial>
+      <origin xyz="46.3 27.5 79.5" rpy="0.0 0.0 -3.1416"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.00457" ixy="1E-06" ixz="2E-06" iyy="0.004831" iyz="0.000448" izz="0.001409"/>
+    </inertial>
+
+  <visual>
+      <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="./mesh/5.stl"/>
+      </geometry>
+      <material name="black"/>
+   </visual>
+  </link>
+
+
+</robot>

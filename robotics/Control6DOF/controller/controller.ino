@@ -1,4 +1,4 @@
-#include "Control6DOF.h"
+#include "../Control6DOF.h"
 
 // 핀 초기화
 int pins[6] = {0, 3, 4, 7, 8, 11};
