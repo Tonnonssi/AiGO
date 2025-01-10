@@ -6,17 +6,19 @@ Control6DOF controller(pins);
 
 void setup() {
    controller.setUp();
+   controller.setSpeed(1,20);
    Serial.begin(9600);
    Serial.println("Serial test");
 } 
 
 void loop() {
   delay(1000);
-  int target_pin[] = {0 ,1, 2, 3, 4, 5};
-  int pin_movement[] = {20, 40, 50,20, 40, 50};
-  int pin_movement_2[] = {20, -30, 30,20, -30, 30};
-
-  controller.rotateJointsTo(6, target_pin, pin_movement);
+  int target_pin[] = {0};
+  int pin_movement[] = {10};
+  int pin_movement_2[] = {0};
+  
+  controller.rotateJointsTo(1, target_pin, pin_movement);
   delay(1000);
-  controller.rotateJointsBy(6, target_pin, pin_movement_2);
+//  controller.rotateJointsBy(1, target_pin, pin_movement_2);
+  delay(1000);
   }
