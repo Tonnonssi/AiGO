@@ -30,8 +30,8 @@ AiGO(아이고)
    4. hidden method / attribute : `_` 를 앞에다 붙여 클래스 내부에서 사용함을 명시함 
    5. 인스턴스 : 언더바, 명확한 이름 지향 
   
-2. **Attribute** : camelCasing    
-3. **method** : snake_casing  
+2. **Attribute** : snake_casing     
+3. **method** : camelCasing   
 3. **하이퍼파라미터** : UPPER_CASE   
 4. **들여쓰기** : 4칸   
 5. **문자열** : 외부로 출력되는 애는 “ ”, 나머지는 ‘ ’  
