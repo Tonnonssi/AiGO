@@ -55,5 +55,17 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false
+  "C_Cpp_Runner.msvcSecureNoWarnings": false,
+
+
+    "python.defaultInterpreterPath": "/opt/anaconda3/envs/AiGO/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.inheritEnv": true,          // 기존 터미널 환경 유지
+    "terminal.integrated.persistSession": true,       // 터미널 세션 유지
+    "debugpy.console": "integratedTerminal",         // 디버깅 시 기존 터미널 유지
+    "python.experiments.optInto": ["All"],           // 최신 Python 실행 방식 사용
+    "jupyter.askForKernelRestart": false,            // Jupyter 환경 재시작 방지
+    "python.terminal.executeInFileDir": true         // Python 실행 시 파일 위치에서 실행
+
 }

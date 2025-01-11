@@ -1,13 +1,16 @@
 {
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "lldb",
-      "request": "launch",
-      "args": [],
-      "cwd": "/Users/ijimin/Documents/GitHub/AiGO/robotics/Control6DOF",
-      "program": "/Users/ijimin/Documents/GitHub/AiGO/robotics/Control6DOF/build/Debug/outDebug"
-    }
+      {
+          "name": "Python: Current File",
+          "type": "python",
+          "request": "launch",
+          "program": "${file}",
+          "console": "integratedTerminal",
+          "justMyCode": false,
+          "env": {
+              "PYTHONPATH": "${workspaceFolder}"
+          }
+      }
   ]
 }
