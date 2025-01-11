@@ -13,6 +13,7 @@ class TrainNetwork:
         # define
         self.losses = [] # elements : ( p_loss, v_loss )
         self.batch_size = batch_size
+        self.epoch = None
 
         # model & device
         self.model = model
@@ -29,10 +30,10 @@ class TrainNetwork:
 
         # Optimizer & Scheduler
         self.optimizer = optim.Adam(self.model.parameters(), lr=self.init_learning_rate, eps=1e-4, weight_decay=1e-4) # L2 정규화 포함
-        self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=self.learn_epoch, gamma = self.learn_decay)
+        self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=self.learn_epoch, gamma=self.learn_decay)
 
 
-    def _train(self, history):
+    def _train(self, history, epoch):
 
         # Sampling
         sample = random.sample(history, self.batch_size)
@@ -62,10 +63,17 @@ class TrainNetwork:
         self.optimizer.zero_grad()
         total_loss.backward()
         self.optimizer.step()
-        self.scheduler.step()
 
-    def __call__(self, history):
-        self._train(history)
+        # epoch이 업데이트되었다면, 
+        if self.epoch != epoch:
+            if self.epoch is not None:
+                self.scheduler.step()
+                self.epoch = epoch               
+            else:
+                self.epoch = 0
+
+    def __call__(self, history, epoch):
+        self._train(history, epoch)
 
     def update_model(self, model):
         self.model.load_state_dict(model.state_dict())
