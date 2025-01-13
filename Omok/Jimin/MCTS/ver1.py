@@ -7,17 +7,21 @@ class MCTS:
     def __init__(self, evaluate_count):
         self.evaluate_count = evaluate_count
         self.legal_policy = None
+        self.child_n = None
 
     def get_legal_policy(self, state, model, temp):
         # define root node
         root_node = Node(state, 0)
 
+        # MCTS 시행 ( 트리 확장 과정 )
         for _ in range(self.evaluate_count):
             root_node.evaluate_value(model)
 
         # 자식 노드의 방문 횟수 확인
         childs_n = get_n_child(root_node.child_nodes)
 
+        self.child_n = childs_n
+        
         # 원핫 정책
         if temp == 0:
             action = np.argmax(childs_n)
@@ -94,9 +98,9 @@ class Node:
 
         values = []
 
-        for node in self.child_nodes:
-            q_value = -(node.w / node.n) if node.n != 0 else 0
-            node_value = q_value + C_PUCT * node.p * sqrt(total_visit) / (1 + node.n) # PUCT 알고리즘
+        for child_node in self.child_nodes:
+            q_value = -(child_node.w / child_node.n) if child_node.n != 0 else 0
+            node_value = q_value + C_PUCT * child_node.p * sqrt(total_visit) / (1 + child_node.n) # PUCT 알고리즘
             values.append(node_value)
 
         return self.child_nodes[np.argmax(values)]

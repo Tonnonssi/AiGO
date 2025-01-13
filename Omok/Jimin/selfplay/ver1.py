@@ -8,6 +8,7 @@ class SelfPlay:
 
         # params
         self.sp_game_count = sp_game_count
+        self.pv_evaluate_count = pv_evaluate_count
 
         # about temps
         self.temp = temp
@@ -15,8 +16,10 @@ class SelfPlay:
 
         self.history = [] # selfPlay's yield
 
-        self.mcts = MCTS(pv_evaluate_count)
+        # mcts는 call할 때마다 새로운 객체가 불러와져야 한다. 
+        self.mcts = None 
 
+        
     def get_first_player_value(self, ended_state):
         # 1: 선 수 플레이어 승리, -1: 선 수 플레이어 패배, 0: 무승부
         if ended_state.is_lose():
@@ -42,7 +45,6 @@ class SelfPlay:
             history.append([state.board, learned_policy, None]) # board, policy, value (원래는 떨어트리는게 맞지만, 틱택토는 간단한 환경임으로 시간 순으로 누적하지 않는다.)
 
             # 정책에 따른 행동 구하기
-
             action = np.random.choice(state.legal_actions, p=legal_policy)
 
             # step
@@ -62,7 +64,7 @@ class SelfPlay:
         return history
 
     def _self_play(self):
-        # sp_game_count 번 만큼 single play 시행
+        # sp_game_count 횟수 만큼 single play 시행
         for i in range(self.sp_game_count):
             single_history = self._single_play(i)
             self.history.extend(single_history)
@@ -71,6 +73,7 @@ class SelfPlay:
                 print(f"self play {i+1} / {self.sp_game_count}")
 
     def __call__(self):
+        self.mcts = MCTS(self.pv_evaluate_count)
         self._self_play()
 
     def update_model(self, model):

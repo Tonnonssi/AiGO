@@ -4,8 +4,8 @@ import time
 
 class ControlRobotArm:
     def __init__(self, 
-                 initial_positions=initial_positions, 
-                 target_position_path='./robotics/communication/final_positions.csv', 
+                 initial_positions=None, 
+                 target_position_path='/Users/ijimin/Documents/GitHub/AiGO/robotics/communication/final_positions.csv', 
                  serial_path='/dev/cu.usbserial-110', 
                  serial_num=115200
                  ):
@@ -13,7 +13,7 @@ class ControlRobotArm:
         # init values 
         self.target_positions = pd.read_csv(target_position_path, index_col=0)
         self.grasping_state = {'open' : 90, 'close' : 0, 'grasp' : 30}
-        self.current_position = initial_positions
+        self.current_position = initial_positions[:]
         self.initial_positions = initial_positions
 
         # serial info 
@@ -30,48 +30,53 @@ class ControlRobotArm:
         self.sendToRobot(coord_absolute_angles)
 
         self.current_position = coord_absolute_angles # 현재 위치 업데이트 
-        print(self.current_position)
+        print(f"Current Position is : {self.current_position}")
 
     def ungraspStone(self):
         # open gripper and let stone 
-        gripper_open = self.current_position
+        gripper_open = self.current_position[:]
         gripper_open[5] = self.grasping_state['open']
         self.sendToRobot(gripper_open)
 
         time.sleep(100)
 
         # close gripper 
-        gripper_close = self.current_position
+        gripper_close = self.current_position[:]
         gripper_close[5] = self.grasping_state['close']
         self.sendToRobot(gripper_close)
 
         # 현재 위치 업데이트 
         self.current_position = gripper_close 
 
-        print(self.current_position)
+        print(f"Current Position is : {self.current_position}")
 
     def graspStone(self):
         # open gripper
-        gripper_open = self.current_position
+        gripper_open = self.current_position[:]
         gripper_open[5] = self.grasping_state['open']
         self.sendToRobot(gripper_open)
 
         time.sleep(100)
 
         # grasp stone 
-        gripper_close = self.current_position
+        gripper_close = self.current_position[:]
         gripper_close[5] = self.grasping_state['grasp']
         self.sendToRobot(gripper_close)
 
         # 현재 위치 업데이트 
         self.current_position = gripper_close 
-        print(self.current_position)
+        print(f"Current Position is : {self.current_position}")
 
 
     def sendToRobot(self, angles:list):
-        data_str = ','.join(f"{int(angle)}" for angle in angles)  # 6자리 소수점까지 변환
-        self.serial.write((data_str + '\n').encode())  # 문자열로 변환 후 전송
+        if not isinstance(angles, list):
+            raise ValueError("Error: angles must be a list.")
+        
+        data_str = ' '.join(f"{int(angle)}" for angle in angles)  # 공백으로 구분
+        self.serial.write((data_str + '\n').encode())  # 문자열 + 개행 문자 전송
         print("Sent:", data_str)
+
+        self.waiting_robot()
 
 
     def backToInit(self):
@@ -88,8 +93,21 @@ class ControlRobotArm:
         time.sleep(100)
         self.backToInit()
 
+    def waiting_robot(self):
+        '''
+        Waiting while receiving a serial signal from the Arduino and reading it.
+        '''
+        while True:
+            if self.serial.in_waiting > 0:  # 수신된 데이터가 있으면
+                response = self.serial.readline().decode().strip()  # 데이터 읽기
+                print(f"Arduino Response: {response}")
+                break
+
 
 if __name__=="__main__":
-    controller = ControlRobotArm()
-    controller.moveToCoord('A1')
-    controller.graspStone()
+    initial_positions = [90, 90, 90, 90, 90, 90]
+    controller = ControlRobotArm(initial_positions)
+
+    controller.backToInit()
+    # controller.moveToCoord('A1')
+    # controller.graspStone()

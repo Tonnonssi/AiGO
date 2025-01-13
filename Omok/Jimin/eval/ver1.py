@@ -60,9 +60,9 @@ class EvalNetwork:
             if state.is_done():
                 break
 
-            next_action = next_actions[0] if state.is_first_player() else next_actions[1]
+            get_next_action = next_actions[0] if state.is_first_player() else next_actions[1]
 
-            action = next_action(state)
+            action = get_next_action(state)
             state = state.next(action)
 
         return self._first_player_point(state)
