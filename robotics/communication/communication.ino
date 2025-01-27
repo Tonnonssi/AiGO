@@ -12,7 +12,7 @@ void convertLongToInt(long longArray[], int intArray[], int size) {
 void setup() {
     controller.setUp();
     Serial.begin(115200);
-    Serial.println("Setup complete");
+    // Serial.println("Setup complete");
 }
 
 void loop() {
@@ -30,10 +30,10 @@ void loop() {
         }
 
         // 데이터 확인용 출력
-        Serial.println("Received:");
+//        Serial.println("Received:");
         for (int i = 0; i < 6; i++) {
             Serial.print(absolute_angles[i]);
-            Serial.print(" ");
+            Serial.print(" .");
         }
         Serial.println();
 

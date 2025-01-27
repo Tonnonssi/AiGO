@@ -105,9 +105,11 @@ class ControlRobotArm:
 
 
 if __name__=="__main__":
-    initial_positions = [90, 90, 90, 90, 90, 90]
+    # initial_positions = [90, 90, 45, 90, 90, 0]
+    initial_positions = [180, 120 ,180 ,180 ,90 ,0]
     controller = ControlRobotArm(initial_positions)
 
     controller.backToInit()
-    # controller.moveToCoord('A1')
+
+    # controller.moveToCoord('A0')
     # controller.graspStone()

@@ -12,11 +12,19 @@ void setup() {
 
 void loop() {
   delay(1000);
-  int target_pin[] = {0 ,1, 2, 3, 4, 5};
-  int pin_movement[] = {20, 40, 50,20, 40, 50};
-  int pin_movement_2[] = {20, -30, 30,20, -30, 30};
+  int target_pin[] = {2};
+//  int pin_movement[] = {90, 90, 90, 90, 90, 90};
+//  int pin_movement_2[] = {0, 0, 0, 0, 0, 0};
+  int pin_movement[] = {0};
+//  int pin_movement_2[] = {180};
 
-  controller.rotateJointsTo(6, target_pin, pin_movement);
+
+  controller.rotateJointsTo(1, target_pin, pin_movement);
   delay(1000);
-  controller.rotateJointsBy(6, target_pin, pin_movement_2);
+//  controller.rotateJointsTo(1, target_pin, pin_movement_2);
+  
+//  controller.rotateJointsTo(6, target_pin, pin_movement);
+//  delay(1000);
+//  controller.rotateJointsTo(6, target_pin, pin_movement_2);
+//  controller.rotateJointsBy(6, target_pin, pin_movement_2);
   }
