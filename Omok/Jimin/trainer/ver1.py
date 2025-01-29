@@ -7,6 +7,7 @@ import numpy as np
 import random
 
 from main.setDevice import *
+from main.gameInfo import *
 
 class TrainNetwork:
     def __init__(self, model, batch_size, learning_rate, learn_decay, learn_epoch):
@@ -39,7 +40,7 @@ class TrainNetwork:
         sample = random.sample(history, self.batch_size)
         states, target_policies, target_values = zip(*sample)
 
-        states = torch.tensor(np.array(states), dtype=torch.float32).view(self.batch_size, -1, 3, 3)  # (BATCH, STATE_DIM, 3, 3)
+        states = torch.tensor(np.array(states), dtype=torch.float32).view(self.batch_size, -1, *STATE_SHAPE)  # (BATCH, STATE_DIM, 3, 3)
         target_policies = torch.tensor(np.array(target_policies), dtype=torch.float32).view(self.batch_size, -1)  # (BATCH, 9)
         target_values = torch.tensor(np.array(target_values), dtype=torch.float32).view(self.batch_size, -1)  # (BATCH, 1)
 

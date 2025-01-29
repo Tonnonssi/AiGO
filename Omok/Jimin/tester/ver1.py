@@ -4,13 +4,14 @@ from IPython.display import display
 
 from MCTS.ver1 import *
 from main.hyperParams import *
-from state.ver1 import *
+from state.ver2 import *
+# from state.ver1 import *
 
 class ModelvsHuman:
     def __init__(self, model):
         self.model = model
         self.mcts = MCTS(EVAL_GAME_COUNT)
-        self.next_actions = self.mcts.get_legal_actions_of(model, EVAL_TEMPERATURE)
+        self.get_next_actions = self.mcts.get_legal_actions_of(model, 0)
 
     def render(self, state):
 
@@ -37,7 +38,7 @@ class ModelvsHuman:
                 break
 
             else:
-                action = self.next_actions(state)
+                action = self.get_next_actions(state)
                 learned_policy = np.zeros(state.n_actions)
 
                 legal_policy = self.mcts.legal_policy

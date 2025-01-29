@@ -50,16 +50,16 @@ class ResidualBlock(nn.Module):
 
 # ========= ResNet ===========
 class Network(nn.Module):
-    def __init__(self, n_residual_block, n_kernel, input_shape, n_actions):
+    def __init__(self, n_residual_block, n_kernel, state_dim, n_actions):
         super().__init__()
         self.n_residual_block = n_residual_block
         self.n_kernel = n_kernel
-        self.input_shape = input_shape
+        self.state_dim = state_dim
         self.n_actions = n_actions
         self.n_fc_nodes = n_kernel  # Match to the number of kernels
 
         # nn
-        self.conv_layer = ConvLayer(self.input_shape[0], self.n_kernel)
+        self.conv_layer = ConvLayer(self.state_dim, self.n_kernel)
         self.residual_blocks = nn.Sequential(*[ResidualBlock(self.n_kernel) for _ in range(self.n_residual_block)])
         self.global_pooling = nn.AdaptiveAvgPool2d(1)
 
@@ -82,10 +82,10 @@ class Network(nn.Module):
     
 
 if __name__=="__main__":
-    model = Network(N_RESIDUAL_BLOCK, N_KERNEL, STATE_SHAPE, 9)
+    model = Network(N_RESIDUAL_BLOCK, N_KERNEL, 2, N_ACTIONS)
 
     # example
-    x = torch.randn((2,*BOARD_SHAPE), requires_grad=True)
+    x = torch.randn((128,2,*STATE_SHAPE), requires_grad=True)
 
     # policy and value
     p, v = model(x)

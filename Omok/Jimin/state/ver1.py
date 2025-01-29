@@ -32,7 +32,7 @@ class State:
 
     def _create_board(self, my_actions, enemy_actions):
         # 전체 state
-        total_board = np.zeros(shape=(3, *self.state_shape))
+        total_board = np.zeros(shape=(STATE_DIM, *self.state_shape))
 
         # 내 말과 상대방 말이 놓인 보드를 원핫인코딩으로 표현
         my_board, enemy_board = np.zeros(self.n_actions), np.zeros(self.n_actions)

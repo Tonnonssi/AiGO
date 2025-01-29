@@ -1,4 +1,5 @@
-from state.ver1 import *
+from state.ver2 import *
+# from state.ver1 import *
 from MCTS.ver1 import *
 
 class SelfPlay:
@@ -41,8 +42,11 @@ class SelfPlay:
             legal_policy = self.mcts.get_legal_policy(state, self.model, self.temp) # MCTS로 정책 생성 # *****
 
             learned_policy[state.legal_actions] = legal_policy
-
-            history.append([state.board, learned_policy, None]) # board, policy, value (원래는 떨어트리는게 맞지만, 틱택토는 간단한 환경임으로 시간 순으로 누적하지 않는다.)
+            
+            # ===== 수정한 부분 ======
+            # 원래는 논문대로 플레이어 순서를 state에 포함해 구현했다. 
+            # 하지만 성능이 제대로 나오지 않았고, 원래 레퍼런스 대로 state를 바꾼다. 
+            history.append([state(), learned_policy, None]) # board, policy, value (원래는 떨어트리는게 맞지만, 틱택토는 간단한 환경임으로 시간 순으로 누적하지 않는다.)
 
             # 정책에 따른 행동 구하기
             action = np.random.choice(state.legal_actions, p=legal_policy)
@@ -58,9 +62,6 @@ class SelfPlay:
             history[i][-1] = value
             value = -value
 
-        # discount temp
-        self.temp = 1 if i < 30 else self.temp * self.temp_discount
-
         return history
 
     def _self_play(self):
@@ -71,6 +72,9 @@ class SelfPlay:
 
             if (i+1) % (self.sp_game_count // 10) == 0:
                 print(f"self play {i+1} / {self.sp_game_count}")
+
+        # discount temp
+        self.temp = 1 if i < 30 else self.temp * self.temp_discount
 
     def __call__(self):
         self.mcts = MCTS(self.pv_evaluate_count)
