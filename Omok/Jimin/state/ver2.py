@@ -7,11 +7,13 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from main.gameInfo import *
 
 class State:
-    def __init__(self, my_actions=None, enemy_actions=None, state_shape=STATE_SHAPE):
+    def __init__(self, my_actions=None, enemy_actions=None, next_action=None, state_shape=STATE_SHAPE):
         # mine, enemy's action
-        self.my_actions = [] if my_actions is None else my_actions
-        self.enemy_actions = [] if enemy_actions is None else enemy_actions
+        self.my_actions = [] if my_actions is None else my_actions 
+        self.enemy_actions = [] if enemy_actions is None else enemy_actions if next_action is None else enemy_actions + [next_action]
+        self.next_action = next_action
 
+        # state shape
         self.state_shape = state_shape
 
         # state info about action space
@@ -40,9 +42,7 @@ class State:
         return mask
 
     def next(self, action):
-        my_actions = self.my_actions.copy()
-        my_actions.append(action)
-        return State(self.enemy_actions, my_actions)
+        return State(self.enemy_actions, self.my_actions, next_action=action)
 
     def _create_board(self, my_actions, enemy_actions):
         # 전체 state
@@ -66,51 +66,107 @@ class State:
 
         return list(set(self.action_space) - my_actions_set - enemy_actions_set)
 
-    def _check_winning_condition(self, board):
-        def _check_row_consecutive(single_arr):
-            for i in range(len(single_arr) - self.winning_condition + 1):
-                if all(single_arr[i:i+self.winning_condition]):    
-                    return True
+    def _check_row_consecutive(self, single_arr):
+        if np.sum(single_arr) < self.winning_condition:
             return False
+
+        if (len(single_arr) == self.winning_condition) & (np.sum(single_arr) == self.winning_condition):
+            return True
+
+        for i in range(len(single_arr) - self.winning_condition + 1):
+            if all(single_arr[i:i+self.winning_condition]):    
+                return True
+        return False
+
+    def _check_winning_condition(self, board):
+        def _get_mask(indices):
+            mask = np.zeros(shape=N_ACTIONS)
+            mask[indices] = 1
+            return mask.astype(bool).reshape(STATE_SHAPE)
         
         board = board.astype(bool)
 
-        is_row = np.any(np.apply_along_axis(lambda x: _check_row_consecutive(x), axis=1, arr=board))
-
-        if is_row:
-            return True
+        # 조기 종료 
+        if np.sum(board) < self.winning_condition:
+            return False
         
-        # 세로, 대각 조건이 맞는지 
+        # row wise 
+        count_five = np.sum(board, axis=1)
+        if np.any(count_five >= WINNING_CONDITION):
+            is_row = np.any(np.apply_along_axis(lambda x: self._check_row_consecutive(x), axis=1, arr=board))
+            if is_row:
+                return True
+
+        # col wise
+        count_five = np.sum(board, axis=0)
+        if np.any(count_five >= WINNING_CONDITION):
+            is_col = np.any(np.apply_along_axis(lambda x: self._check_row_consecutive(x), axis=0, arr=board))
+            if is_col:
+                return True
+        
+        # 대각 조건이 맞는지 
         indices = np.arange(N_ACTIONS)[board.reshape(-1)] 
 
         for index in indices:
             if index not in self.anti_diag_idx_list:
                 anti_diag_lst = list(range(index, index+(WINNING_CONDITION-1)*(STATE_SHAPE[1]-1)+1, STATE_SHAPE[1]-1))
-                is_anti_diag = all(element in indices for element in anti_diag_lst)
+                if max(anti_diag_lst) < N_ACTIONS:
+                    anti_diag_mask = _get_mask(anti_diag_lst)
+                    is_anti_diag = board[anti_diag_mask].all()
 
-                if is_anti_diag:
-                    return True 
+                    if is_anti_diag:
+                        return True 
                 
             if index not in self.diag_idx_list:
                 diag_lst = list(range(index, index+(WINNING_CONDITION-1)*(STATE_SHAPE[1]+1)+1, STATE_SHAPE[1]+1))
-                is_diag = all(element in indices for element in diag_lst)
+                if max(diag_lst) < N_ACTIONS:
+                    diag_mask = _get_mask(diag_lst)
+                    is_diag = board[diag_mask].all()
 
-                if is_diag:
-                    return True 
-                
-            
-            col_lst = list(range(index, index+(WINNING_CONDITION-1)*STATE_SHAPE[1]+1, STATE_SHAPE[1]))
-            is_col = all(element in indices for element in col_lst)
-
-            if is_col:
-                return True 
+                    if is_diag:
+                        return True 
                 
         return False
 
+    def _check_winning_condition_with_action(self, board):
+        # 조기 종료 
+        if np.sum(board) < self.winning_condition:
+            return False
+        
+        row, col = divmod(self.next_action, STATE_SHAPE[1])
+
+        # check row
+        is_row = self._check_row_consecutive(board[row, :])
+        if is_row:
+            return True
+
+        # check col
+        is_col = self._check_row_consecutive(board[:, col])
+        if is_col:
+            return True
+
+        # check diagonal ↘ (main diagonal)
+        diag_start_row = max(row - col, 0)  # 시작 행
+        diag_start_col = max(col - row, 0)  # 시작 열
+        diag_values = np.diag(board, k=diag_start_col - diag_start_row)  # 주 대각선 추출
+
+        is_diag = self._check_row_consecutive(diag_values)
+        if is_diag:
+            return True
+
+        # check anti-diagonal ↙ (secondary diagonal)
+        flipped_board = np.fliplr(board)  # 보드를 좌우 반전하여 반대 대각선 ↙을 주 대각선 ↘으로 변환
+        anti_diag_values = np.diag(flipped_board, k=STATE_SHAPE[1] - 1 - (col + row))
+
+        is_anti_diag = self._check_row_consecutive(anti_diag_values)
+        if is_anti_diag:
+            return True
+
+        return False
 
     def is_win(self):
         my_state = self.board[0]
-        condition = self._check_winning_condition(my_state)
+        condition = self._check_winning_condition(my_state) 
         self.done_condition[0] = condition
         return condition
 
@@ -121,7 +177,7 @@ class State:
 
     def is_lose(self):
         enemy_state = self.board[1]
-        condition = self._check_winning_condition(enemy_state)
+        condition = self._check_winning_condition(enemy_state) if self.next_action is None else self._check_winning_condition_with_action(enemy_state)
         self.done_condition[2] = condition
         return condition
 
@@ -159,6 +215,7 @@ class State:
 
     def __str__(self):
         return self._render_board_to_str()
+    
 
 if __name__=="__main__":
     s = State(list(range(23, 56, 8)),[1,2,3,4])

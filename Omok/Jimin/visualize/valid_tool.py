@@ -285,6 +285,10 @@ def visualize_game_result(result:dict, path=None, download=None):
 def visualize_game_record(game_action_list, ax=None, download=None, path=None):
     nrow, ncol = STATE_SHAPE
 
+    if game_action_list is None:  # game_action_list가 None이면 오류 방지
+        print("⚠ Warning: No game action list available for visualization.")
+        return
+
     # Create a figure for visualization
     if ax is None:
         _, ax = plt.subplots(figsize=(6, 6))
@@ -314,8 +318,7 @@ def visualize_game_record(game_action_list, ax=None, download=None, path=None):
             ax.add_patch(white_action)
             ax.text(y + 0.5, x + 0.5, str(idx + 1), color='black', ha='center', va='center', fontsize=12, zorder=5)
     
-
-    # check consecutive and draw when it exists
+    # Draw consecutive win line if it exists
     black_indices = game_action_list[::2]
     white_indices = game_action_list[1::2]
 
