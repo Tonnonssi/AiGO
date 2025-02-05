@@ -1,15 +1,16 @@
 from state.ver2 import *
 # from state.ver1 import *
+# from MCTS.ver2 import *
 from MCTS.ver1 import *
 
 class SelfPlay:
-    def __init__(self, model, temp, temp_discount, sp_game_count, pv_evaluate_count):
+    def __init__(self, model, temp, temp_discount, n_selfplay, n_playout):
         # model
         self.model = model
 
         # params
-        self.sp_game_count = sp_game_count
-        self.pv_evaluate_count = pv_evaluate_count
+        self.n_selfplay = n_selfplay
+        self.n_playout = n_playout
 
         # about temps
         self.temp = temp
@@ -65,20 +66,19 @@ class SelfPlay:
         return history
 
     def _self_play(self):
-        # sp_game_count 횟수 만큼 single play 시행
-        for i in range(self.sp_game_count):
+        # n_selfplay 횟수 만큼 single play 시행
+        for i in range(self.n_selfplay):
             single_history = self._single_play(i)
             self.history.extend(single_history)
 
-            if (i+1) % (self.sp_game_count // 10) == 0:
-                print(f"self play {i+1} / {self.sp_game_count}")
+            if (i+1) % (self.n_selfplay // 10) == 0:
+                print(f"self play {i+1} / {self.n_selfplay}")
 
-        # discount temp
-        self.temp = 1 if i < 30 else self.temp * self.temp_discount
-
-    def __call__(self):
-        self.mcts = MCTS(self.pv_evaluate_count)
+    def __call__(self, idx):
+        self.mcts = MCTS(self.n_playout)
         self._self_play()
+         # discount temp
+        self.temp = 1 if idx < 30 else self.temp * self.temp_discount
 
     def update_model(self, model):
         self.model.load_state_dict(model.state_dict())

@@ -34,7 +34,7 @@ class TrainNetwork:
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=self.learn_epoch, gamma=self.learn_decay)
 
 
-    def _train(self, history, epoch):
+    def _train(self, history):
 
         # Sampling
         sample = random.sample(history, self.batch_size)
@@ -74,8 +74,8 @@ class TrainNetwork:
             else:
                 self.epoch = 0
 
-    def __call__(self, history, epoch):
-        self._train(history, epoch)
+    def __call__(self, history):
+        self._train(history)
 
     def update_model(self, model):
         self.model.load_state_dict(model.state_dict())
