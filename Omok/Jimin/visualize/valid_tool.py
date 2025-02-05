@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+from matplotlib.ticker import MaxNLocator
 import seaborn as sns
 import numpy as np
 import copy
@@ -339,56 +340,67 @@ def visualize_game_record(game_action_list, ax=None, download=None, path=None):
 
 def visualize_win_rate(win_rates, ax=None, path=None, download=False):
     # Create a figure for visualization
+    show_plot = False
     if ax is None:
-        _, ax = plt.subplots(figsize=(6, 6))
+        fig, ax = plt.subplots(figsize=(6, 6))
+        show_plot = True  # 새 figure를 생성한 경우 show 활성화
 
-    # seperate data
+    # Separate data
     win, win_draw = zip(*win_rates)
 
-    # graphing
-    ax.plot(win, marker='o', linestyle='-', label="win")
-    ax.plot(win_draw, marker='s', linestyle='-', label="win_draw", color='r')
-    ax.set_xticks(range(0, len(win_rates)))
+    # Graphing
+    ax.plot(win, linestyle='-', label="win_draw")
+    ax.plot(win_draw, linestyle='-', label="win")
 
-    ax.xlabel("rate")
-    ax.ylabel("steps")
-    ax.title("Win and Win Draw Rate per steps")
+    # X-axis settings
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=10))  # x축에 10개의 값만 표시
+
+    ax.set_xlabel("steps")
+    ax.set_ylabel("rate")
+    ax.set_title("Win and Win Draw Rate per Steps")
     ax.legend()
-    ax.grid(True)
+    
+    # Remove grid
+    ax.grid(False)
 
     if download:
         if path is None:
             path = os.path.abspath(os.path.join(os.getcwd(), ".."))
         plt.savefig(f"{path}/win_rate.png", dpi=300, bbox_inches='tight')
 
-    if ax is None:
+    if show_plot:
         plt.show()
 
 def visualize_loss(losses, ax=None, path=None, download=False):
     # Create a figure for visualization
+    show_plot = False
     if ax is None:
-        _, ax = plt.subplots(figsize=(6, 6))
+        fig, ax = plt.subplots(figsize=(6, 6))
+        show_plot = True  # 새 figure를 생성한 경우 show 활성화
 
-    # seperate data
+    # Separate data
     p, v, total = zip(*losses)
 
-    # graphing
+    # Graphing
     ax.plot(p, linestyle='-', label="policy")
     ax.plot(v, linestyle='-', label="value")
     ax.plot(total, linestyle='-', label="total")
 
-    ax.set_xticks(range(0, len(losses)))
+    # X-axis settings
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=10))  # x축에 10개의 값만 표시
 
-    ax.xlabel("loss")
-    ax.ylabel("steps")
-    ax.title("LOSS per steps")
+    ax.set_xlabel("steps")
+    ax.set_ylabel("loss")
+    ax.set_title("Loss per Steps")
     ax.legend()
-    ax.grid(True)
+    
+    # Remove grid
+    ax.grid(False)
 
     if download:
         if path is None:
             path = os.path.abspath(os.path.join(os.getcwd(), ".."))
         plt.savefig(f"{path}/loss.png", dpi=300, bbox_inches='tight')
 
-    if ax is None:
+    if show_plot:
         plt.show()

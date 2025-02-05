@@ -10,7 +10,7 @@ from visualize.valid_tool import *
 class ModelvsHuman:
     def __init__(self, model):
         self.model = model
-        self.mcts = MCTS(EVAL_GAME_COUNT)
+        self.mcts = MCTS(N_PLAYOUT)
         self.get_next_actions = self.mcts.get_legal_actions_of(model, 0, with_policy=True)
 
     def vs_human(self, with_policy):

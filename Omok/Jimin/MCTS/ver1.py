@@ -4,11 +4,12 @@ import numpy as np
 from math import sqrt
 
 from main.gameInfo import *
+from main.hyperParams import *
 
 
 class MCTS:
-    def __init__(self, evaluate_count):
-        self.evaluate_count = evaluate_count
+    def __init__(self, n_playout):
+        self.n_playout = n_playout
         self.legal_policy = None
         self.child_n = None
 
@@ -22,7 +23,7 @@ class MCTS:
         root_node = Node(state, 0)
 
         # MCTS 시행 ( 트리 확장 과정 )
-        for _ in range(self.evaluate_count):
+        for _ in range(self.n_playout):
             root_node.evaluate_value(model)
 
         # 자식 노드의 방문 횟수 확인
@@ -101,7 +102,7 @@ class Node:
 
         # When child node exist
         else:
-            value = - self.select_next_child_node().evaluate_value(model)
+            value = - self._select_next_child_node().evaluate_value(model)
 
             # update
             self.n += 1
@@ -109,10 +110,8 @@ class Node:
 
             return value
 
-    def select_next_child_node(self):
+    def _select_next_child_node(self):
         # PUCT 알고리즘을 사용
-
-        C_PUCT = 1.0 # 탐험의 정도
 
         total_visit = sum(get_n_child(self.child_nodes))
 

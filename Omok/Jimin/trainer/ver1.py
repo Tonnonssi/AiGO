@@ -52,13 +52,14 @@ class TrainNetwork:
         raw_policy, value = self.model(states)
 
         # Corrected loss calculations
-        p_loss = self.cross_entropy_loss(raw_policy, target_policies)
+        # p_loss = self.cross_entropy_loss(raw_policy, target_policies)
+        p_loss = F.kl_div(F.log_softmax(raw_policy, dim=1), target_policies, reduction='batchmean')
         v_loss = self.mse_loss(value, target_values)
 
         total_loss = p_loss + v_loss
 
         # Logging losses
-        self.losses.append((p_loss.item(), v_loss.item(), total_loss.item()))
+        self.losses.append((p_loss.detach().cpu().item(), v_loss.detach().cpu().item(), total_loss.detach().cpu().item()))
 
         # Backpropagation
         self.optimizer.zero_grad()

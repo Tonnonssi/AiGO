@@ -2,6 +2,7 @@ import torch
 import matplotlib.pyplot as plt
 
 from MCTS.ver1 import *
+# from MCTS.ver2 import *
 from state.ver2 import *
 from visualize.valid_tool import *
 from utils.saveLoad import *
@@ -36,12 +37,15 @@ class EvalNetwork:
         return 0.5
 
     def _evaluate_network(self, recent_model):
+        # init dict
+        self.game_result = dict.fromkeys(self.game_result, 0)
+
         # get network
         self.recent_model = recent_model
 
         # MCTS를 이용
-        next_actions_recent = self.mcts.get_legal_actions_of(self.recent_model, 0)
-        next_actions_best = self.mcts.get_legal_actions_of(self.best_model, 0)
+        next_actions_recent = self.mcts.get_legal_actions_of(self.recent_model, self.eval_temperature)
+        next_actions_best = self.mcts.get_legal_actions_of(self.best_model, self.eval_temperature)
         next_actions = (next_actions_recent, next_actions_best)
 
         total_point = 0
@@ -66,7 +70,7 @@ class EvalNetwork:
         if average_point >= 0.5:
             self._update_best_model()
 
-        self.win_rate = (round(self.game_result['win'] / sum(self.game_result.values()), 2), round(self.game_result['win'] + self.game_result['draw'] / sum(self.game_result.values()), 2)
+        self.win_rate = (round(self.game_result['win'] / sum(self.game_result.values()), 2), (round(self.game_result['win'] + self.game_result['draw']) / sum(self.game_result.values()), 2)
 )
     def _single_play(self, next_actions):
 
@@ -112,8 +116,8 @@ class EvalNetwork:
         valid_f_paths = make_valid_file_paths(idx) if download else None 
 
         # MCTS를 이용
-        next_actions_recent = self.mcts.get_legal_actions_of(self.recent_model, 0, with_policy=True)
-        next_actions_best = self.mcts.get_legal_actions_of(self.best_model, 0, with_policy=True)
+        next_actions_recent = self.mcts.get_legal_actions_of(self.recent_model, self.eval_temperature, with_policy=True)
+        next_actions_best = self.mcts.get_legal_actions_of(self.best_model, self.eval_temperature, with_policy=True)
         next_actions_list = (next_actions_recent, next_actions_best)
         
         # step마다 시각화 & 기보 시각화를 위한 action list return 
@@ -146,4 +150,5 @@ class EvalNetwork:
         print("Best Model is Updated.")
 
     def __call__(self, recent_model):
+        print("Evaluation Started.")
         self._evaluate_network(recent_model)
