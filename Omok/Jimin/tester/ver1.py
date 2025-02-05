@@ -42,7 +42,7 @@ class ModelvsHuman:
                 learned_policy = np.zeros(state.n_actions)
 
                 legal_policy = self.mcts.legal_policy
-                learned_policy[state.legal_actions] = legal_policy
+                learned_policy[state.get_legal_actions()] = legal_policy
 
                 if  with_policy:
                     hist = (state.board, learned_policy, None)

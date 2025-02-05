@@ -14,7 +14,6 @@ class TrainNetwork:
         # define
         self.losses = [] # elements : ( p_loss, v_loss )
         self.batch_size = batch_size
-        self.epoch = None
 
         # model & device
         self.model = model
@@ -66,15 +65,9 @@ class TrainNetwork:
         total_loss.backward()
         self.optimizer.step()
 
-        # epoch이 업데이트되었다면, 
-        if self.epoch != epoch:
-            if self.epoch is not None:
-                self.scheduler.step()
-                self.epoch = epoch               
-            else:
-                self.epoch = 0
 
     def __call__(self, history):
+        print("> Train Started.")
         self._train(history)
 
     def update_model(self, model):

@@ -42,7 +42,7 @@ class SelfPlay:
 
             legal_policy = self.mcts.get_legal_policy(state, self.model, self.temp) # MCTS로 정책 생성 # *****
 
-            learned_policy[state.legal_actions] = legal_policy
+            learned_policy[state.get_legal_actions()] = legal_policy
             
             # ===== 수정한 부분 ======
             # 원래는 논문대로 플레이어 순서를 state에 포함해 구현했다. 
@@ -50,7 +50,7 @@ class SelfPlay:
             history.append([state(), learned_policy, None]) # board, policy, value (원래는 떨어트리는게 맞지만, 틱택토는 간단한 환경임으로 시간 순으로 누적하지 않는다.)
 
             # 정책에 따른 행동 구하기
-            action = np.random.choice(state.legal_actions, p=legal_policy)
+            action = np.random.choice(state.get_legal_actions(), p=legal_policy)
 
             # step
             state = state.next(action)

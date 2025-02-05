@@ -11,7 +11,7 @@ class MCTS:
     def __init__(self, n_playout):
         self.n_playout = n_playout
         self.legal_policy = None
-        self.child_n = None
+        self.child_n = []
 
     def get_legal_policy(self, state, model, temp):
         def argmax(lst):
@@ -46,16 +46,16 @@ class MCTS:
     def get_legal_actions_of(self, model, temp, with_policy=False):
         def get_legal_actions_of(state):
             self.legal_policy = self.get_legal_policy(state, model, temp)
-            action = np.random.choice(state.legal_actions, p=self.legal_policy)
+            action = np.random.choice(state.get_legal_actions(), p=self.legal_policy)
 
             if with_policy:
                 # 전체 action에 대한 policy 
                 learned_policy = np.zeros([state.n_actions])
-                learned_policy[state.legal_actions] = self.legal_policy
+                learned_policy[state.get_legal_actions()] = self.legal_policy
 
                 # 전체 action에 대한 visit cnt
                 visits_cnt = np.zeros([state.n_actions])
-                visits_cnt[state.legal_actions] = self.child_n
+                visits_cnt[state.get_legal_actions()] = self.child_n
 
                 return action, learned_policy, visits_cnt # (action, policy, visits_cnt)
             
@@ -95,7 +95,7 @@ class Node:
             self.w += value
 
             # expand
-            for action, p in zip(self.state.legal_actions, legal_policy):
+            for action, p in zip(self.state.get_legal_actions(), legal_policy):
                 self.child_nodes.append(Node(self.state.next(action), p))
 
             return value
@@ -154,7 +154,7 @@ def predict(model, state):
 
     # take legal policy
 
-    legal_policy = raw_policy[state.legal_actions]
+    legal_policy = raw_policy[state.get_legal_actions()]
     legal_policy /= sum(legal_policy) if sum(legal_policy) else 1
 
     return legal_policy, value
