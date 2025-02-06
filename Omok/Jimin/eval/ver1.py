@@ -85,19 +85,20 @@ class EvalNetwork:
                 total_point += point
 
             if (i+1) % (self.eval_game_count // 5) == 0:
-                print(f"> eval game {i+1} / {self.eval_game_count}")
+                print(f"eval game {i+1} / {self.eval_game_count}")
 
         average_point = total_point / self.eval_game_count
 
         print('Average Point of Latest Model', average_point)
 
-        visualize_game_result(self.game_result) # visualize circle graph 
+        # visualize_game_result(self.game_result) # visualize circle graph 
 
         if average_point >= 0.55:
             self._update_best_model()
 
-        self.win_rate = (round(self.game_result['win'] / sum(self.game_result.values()), 2), (round(self.game_result['win'] + self.game_result['draw']) / sum(self.game_result.values()), 2)
-)
+        self.win_rate = round(self.game_result['win'] / sum(self.game_result.values()), 2), (round(self.game_result['win'] + self.game_result['draw']) / sum(self.game_result.values()), 2)
+        print(f"Win rate : {self.win_rate[0]:.2f}")
+
     def _single_play(self, next_action_methods):
         '''
         _single_play( next_action_methods : list containing methods ) -> point : float 

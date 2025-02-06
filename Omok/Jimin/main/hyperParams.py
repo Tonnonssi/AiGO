@@ -1,6 +1,6 @@
 # game info # 
 TRAIN_EPOCHS = 1000
-STATE_DIM = 3 # 2,3,4,5
+STATE_DIM = 4 # 2,3,4,5
 
 # nn #
 N_KERNEL = 128
@@ -23,7 +23,7 @@ N_SELFPLAY = 20
 N_ITER = TOTAL_SELFPLAY // N_SELFPLAY
 
 EVAL_GAME_COUNT = 20  # 평가 1회 당 게임 수(오리지널: 400)
-N_PLAYOUT = 10 # 정책을 구할 때 시뮬레이션 횟수 (오리지널 : 1600)
+N_PLAYOUT = 200 # 정책을 구할 때 시뮬레이션 횟수 (오리지널 : 1600)
 
 # exploration #
 C_PUCT = 5.0
