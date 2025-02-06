@@ -2,14 +2,20 @@ import sys
 import os
 import copy
 import numpy as np
+from abc import ABC, abstractmethod
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from main.gameInfo import *
 
-class State:
+class BaseState(ABC):
+    '''
+    Structure for State. 
+    This abstract class bulids whole state except __call__() which makes state for train.  
+    '''
     __slots__ = ('player_state', 'enemy_state', 'next_action', 'state_shape', 
                  'action_space', 'n_actions', 'winning_condition', 'done_condition')
+    
     def __init__(self, player_state=None, enemy_state=None, next_action=None, state_shape=STATE_SHAPE):
         # player, enemy's action
         self.player_state = np.zeros(shape=state_shape) if player_state is None else copy.deepcopy(player_state) 
@@ -31,8 +37,8 @@ class State:
 
         self.done_condition = [None] * 3 # win, draw, lose 
 
-    def next(self, action):
-        return State(self.enemy_state, self.player_state, next_action=action)
+    def next(self, action : int):
+        return self.__class__(self.enemy_state, self.player_state, next_action=action)
 
     def get_legal_actions(self):
         my_actions_set = set(np.where(self.player_state.reshape(-1) != 0)[0])
@@ -194,9 +200,87 @@ class State:
 
         # Combine the column legend and rows
         return '\n'.join([col_legend] + row_legend)
-    
-    def __call__(self):
-        return np.concat([self.player_state, self.enemy_state], axis=0)
 
     def __str__(self):
         return self._render_board_to_str()
+    
+    @abstractmethod
+    def __call__(self):
+        pass
+
+def select_state(n_dim=1):
+    class BasicState(BaseState):
+        def __call__(self):
+            '''
+            (2, *STATE_SHAPE)
+            [0] : player board 
+            [1] : enemy board 
+            '''
+            return np.stack([self.player_state, self.enemy_state], axis=0)
+
+    class FirstMoveState(BaseState):
+        def __call__(self):
+            '''
+            (3, *STATE_SHAPE)
+            [0] : player board 
+            [1] : enemy board 
+            [2] : 1 is first player? else 0
+            '''
+            state = np.zeros(shape=(3,*STATE_SHAPE))
+            state[0] = self.player_state
+            state[1] = self.enemy_state
+            if self.is_first_player():
+                state[2] = 1
+            
+            return state 
+        
+    class ActionAwareState(BaseState):
+        def __call__(self):
+            '''
+            (4, *STATE_SHAPE)
+            [0] : player board 
+            [1] : enemy board 
+            [2] : previous enemy's action as one-hot 
+            [3] : 1 is first player? else 0
+            '''
+            state = np.zeros(shape=(4, *STATE_SHAPE))
+            state[0] = self.player_state
+            state[1] = self.enemy_state
+            if self.next_action is not None:
+                row, col = divmod(self.next_action, STATE_SHAPE[1])
+                state[2, row, col] = 1
+            if self.is_first_player():
+                state[3] = 1
+            return state
+        
+    class WithPreviousState(BaseState):
+        def __call__(self):
+            '''
+            (5, *STATE_SHAPE)
+            [0] : player board 
+            [1] : enemy board 
+            [2] : player board before 1 step (fixed)
+            [3] : enemy board before 1 step (changed by action)
+            [4] : 1 is first player? else 0
+            '''
+            state = np.zeros(shape=(5, *self.state_shape))
+            state[(0, 2), :] = self.player_state
+            state[(1, 3), :] = self.enemy_state
+            if self.next_action is not None:
+                row, col = divmod(self.next_action, self.state_shape[1])
+                state[3, row, col] = 0
+            if self.is_first_player():
+                state[4] = 1
+            return state
+        
+    state_classes = {
+        2 : BasicState,
+        3 : FirstMoveState, 
+        4 : ActionAwareState,
+        5 : WithPreviousState
+        }
+    
+    if n_dim not in state_classes:
+        raise ValueError(f"Invalid state dimension: {n_dim}. Choose from {list(state_classes.keys())}")
+    
+    return state_classes[n_dim]
