@@ -51,23 +51,42 @@ class MCTS:
         return legal_policy
 
     def get_legal_actions_of(self, model, temp, with_policy=False):
-        def get_legal_actions_of(state):
+        '''
+         get_legal_actions_of(model, temp, with_policy=False) ->  get_legal_actions_of : method
+
+         This method returns method set by init params. 
+        '''
+        def get_legal_action_of(state):
+            '''
+            get_legal_actions_of(state : class) -> action : int 
+
+            This method get legal action. 
+            '''
             self.legal_policy = self.get_legal_policy(state, model, temp)
             action = np.random.choice(state.get_legal_actions(), p=self.legal_policy)
 
-            if with_policy:
-                # 전체 action에 대한 policy 
-                learned_policy = np.zeros([state.n_actions])
-                learned_policy[state.get_legal_actions()] = self.legal_policy
-
-                # 전체 action에 대한 visit cnt
-                visits_cnt = np.zeros([state.n_actions])
-                visits_cnt[state.get_legal_actions()] = self.child_n
-
-                return action, learned_policy, visits_cnt # (action, policy, visits_cnt)
-            
             return action
-        return get_legal_actions_of
+        
+        def get_action_with_visualize_pkg_of(state):
+            '''
+            get_legal_actions_of(state : class) -> action, learned_policy, visits_cnt
+
+            This method gets legal action-policy-visit cnt for visualization. 
+            return values are based on *whole action space*.
+            '''
+            self.legal_policy = self.get_legal_policy(state, model, temp)
+            action = np.random.choice(state.get_legal_actions(), p=self.legal_policy)
+
+            learned_policy = np.zeros([state.n_actions])
+            learned_policy[state.get_legal_actions()] = self.legal_policy
+
+            visits_cnt = np.zeros([state.n_actions])
+            visits_cnt[state.get_legal_actions()] = self.child_n
+
+            return action, learned_policy, visits_cnt 
+        
+
+        return get_legal_action_of if with_policy else get_action_with_visualize_pkg_of
 
     def boltzmann_dist(self, x_lst, temp):
         x_lst = [x ** (1/temp) for x in x_lst]

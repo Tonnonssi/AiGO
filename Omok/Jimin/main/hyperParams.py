@@ -1,10 +1,11 @@
-# game info 
-EPOCHS = 50
+# game info # 
+EPOCHS = 100
+STATE_DIM = 4 # 2,3,4,5
 
 # nn #
 N_KERNEL = 128
 N_RESIDUAL_BLOCK = 16
-BATCH_SIZE = 128 # 128
+BATCH_SIZE = 256 # 128
 
 # learning rate #
 LEARNING_RATE = 2e-3
@@ -27,6 +28,7 @@ C_PUCT = 5.0
 hyper_params = f'''
 # game info 
 EPOCHS = {EPOCHS}
+STATE_DIM = {STATE_DIM}
 
 # nn #
 N_KERNEL = {N_KERNEL}

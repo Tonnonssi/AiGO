@@ -70,6 +70,9 @@ def check_consecutive(input):
 
 
 def draw_omok_board(state, next_action=None, ax=None):
+    '''
+    draw current state with / without action.
+    '''
     state = copy.deepcopy(state)
     board = state[0] + state[1] * -1 if is_first_player(state) else state[0] * -1 + state[1]
     nrow, ncol = board.shape
@@ -136,7 +139,9 @@ def draw_omok_board(state, next_action=None, ax=None):
 
 
 def visualize_MCTS_visits(visits, state, next_action=None, ax=None, agent_type='recent'):
-
+    '''
+    visualize current state & MCTS n_visit
+    '''
     color_dict = {'best' : 'PuRd',
                   'recent' : 'GnBu'}
     
@@ -185,7 +190,9 @@ def visualize_MCTS_visits(visits, state, next_action=None, ax=None, agent_type='
     ax.set_title("MCTS visits")
 
 def visualize_current_policy(policy, state, next_action=None, ax=None, agent_type='recent'):
-
+    '''
+    visualize current state and policy
+    '''
     color_dict = {'best' : 'OrRd',
                   'recent' : 'BuPu'}
     
@@ -233,7 +240,9 @@ def visualize_current_policy(policy, state, next_action=None, ax=None, agent_typ
     ax.set_title("current Policy")
 
 def visualize_pack(agent_type, state, visit, policy, next_action, step=0, path=None, download=False):
-    
+    '''
+    visualize 3 : omok board, n visits, current policy
+    '''
     _, axes = plt.subplots(1, 3, figsize=(18, 6))
 
     draw_omok_board(state, next_action=next_action, ax=axes[0])
@@ -251,6 +260,9 @@ def visualize_pack(agent_type, state, visit, policy, next_action, step=0, path=N
     plt.show()
 
 def visualize_game_result(result:dict, path=None, download=None):
+    '''
+    game result : win, lose, draw
+    '''
     # 데이터 준비
     categories = list(result.keys())
     values = list(result.values())
@@ -283,6 +295,9 @@ def visualize_game_result(result:dict, path=None, download=None):
     plt.show()
 
 def visualize_game_record(game_action_list, ax=None, download=None, path=None):
+    '''
+    game record by action list
+    '''
     nrow, ncol = STATE_SHAPE
 
     if game_action_list is None:  # game_action_list가 None이면 오류 방지

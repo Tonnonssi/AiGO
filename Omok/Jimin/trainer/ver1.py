@@ -10,6 +10,11 @@ from main.setDevice import *
 from main.gameInfo import *
 
 class TrainNetwork:
+    '''
+    TrainNetwork(model : nn.Module, batch_size : int, learning_rate : float, learn_decay : float, learn_epoch : int)
+
+    This class conducts training nn. 
+    '''
     def __init__(self, model, batch_size, learning_rate, learn_decay, learn_epoch):
         # define
         self.losses = [] # elements : ( p_loss, v_loss )
@@ -29,7 +34,8 @@ class TrainNetwork:
         self.cross_entropy_loss = nn.CrossEntropyLoss()
 
         # Optimizer & Scheduler
-        self.optimizer = optim.Adam(self.model.parameters(), lr=self.init_learning_rate, eps=1e-4, weight_decay=1e-4) # L2 정규화 포함
+        self.L2 = 1e-4
+        self.optimizer = optim.Adam(self.model.parameters(), lr=self.init_learning_rate, eps=1e-4, weight_decay=self.L2)
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=self.learn_epoch, gamma=self.learn_decay)
 
 
@@ -39,11 +45,11 @@ class TrainNetwork:
         sample = random.sample(history, self.batch_size)
         states, target_policies, target_values = zip(*sample)
 
-        states = torch.tensor(np.array(states), dtype=torch.float32).view(self.batch_size, -1, *STATE_SHAPE)  # (BATCH, STATE_DIM, 3, 3)
-        target_policies = torch.tensor(np.array(target_policies), dtype=torch.float32).view(self.batch_size, -1)  # (BATCH, 9)
+        states = torch.tensor(np.array(states), dtype=torch.float32).view(self.batch_size, -1, *STATE_SHAPE)  # (BATCH, STATE_DIM, *STATE_SHAPE)
+        target_policies = torch.tensor(np.array(target_policies), dtype=torch.float32).view(self.batch_size, -1)  # (BATCH, N_ACTIONS)
         target_values = torch.tensor(np.array(target_values), dtype=torch.float32).view(self.batch_size, -1)  # (BATCH, 1)
 
-        # device에 올리기
+        # put on device
         states, target_policies, target_values = states.to(self.device), target_policies.to(self.device), target_values.to(self.device)
 
         self.model.train()
@@ -51,8 +57,8 @@ class TrainNetwork:
         raw_policy, value = self.model(states)
 
         # Corrected loss calculations
-        # p_loss = self.cross_entropy_loss(raw_policy, target_policies)
-        p_loss = F.kl_div(F.log_softmax(raw_policy, dim=1), target_policies, reduction='batchmean')
+        p_loss = self.cross_entropy_loss(raw_policy, target_policies)
+        # p_loss = F.kl_div(F.log_softmax(raw_policy, dim=1), target_policies, reduction='batchmean')
         v_loss = self.mse_loss(value, target_values)
 
         total_loss = p_loss + v_loss

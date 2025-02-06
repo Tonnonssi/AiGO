@@ -5,7 +5,7 @@ from IPython.display import display
 from MCTS.ver1 import *
 from main.hyperParams import *
 from state.ver2 import *
-# from state.ver1 import *
+
 
 class ModelvsHuman:
     def __init__(self, model):
