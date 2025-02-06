@@ -1,9 +1,15 @@
 from state.ver2 import *
-# from state.ver1 import *
-# from MCTS.ver2 import *
 from MCTS.ver1 import *
+from collections import deque
+
+State = select_state(STATE_DIM)
 
 class SelfPlay:
+    '''
+    SelfPlay(model : nn.Module, temp : float, temp_discount : float, n_selfplay : int, n_playout : int)
+
+    The SelfPlay class conducts selfplay of AlphaZero. 
+    '''
     def __init__(self, model, temp, temp_discount, n_selfplay, n_playout):
         # model
         self.model = model
@@ -16,20 +22,31 @@ class SelfPlay:
         self.temp = temp
         self.temp_discount = temp_discount
 
-        self.history = [] # selfPlay's yield
+        # selfPlay's yield
+        self.history = deque(maxlen=10000)
 
-        # mcts는 call할 때마다 새로운 객체가 불러와져야 한다. 
+        # mcts instance should reset 
         self.mcts = None 
 
         
     def get_first_player_value(self, ended_state):
-        # 1: 선 수 플레이어 승리, -1: 선 수 플레이어 패배, 0: 무승부
+        '''
+         _get_first_player_point(ended_state : class) -> game_result : float 
+         
+         game_result = 1  : if first player wins
+         game_result = -1 : if first player defeats
+         game_result = 0  : if player draws
+        '''
         if ended_state.is_lose():
             return -1 if ended_state.is_first_player() else 1
         return 0
 
-    def _single_play(self, i):
+    def _single_play(self):
+        '''
+        _single_play() -> None
 
+        This method perform single play which is part of self play. 
+        '''
         history = []
         state = State()
 
@@ -37,40 +54,39 @@ class SelfPlay:
             if state.is_done():
                 break
 
-            # 현 상태에 대한 정책 구하기
+            # get policy of current state 
             learned_policy = np.zeros([state.n_actions]) # init value
 
-            legal_policy = self.mcts.get_legal_policy(state, self.model, self.temp) # MCTS로 정책 생성 # *****
+            legal_policy = self.mcts.get_legal_policy(state, self.model, self.temp) 
 
             learned_policy[state.get_legal_actions()] = legal_policy
             
-            # ===== 수정한 부분 ======
-            # 원래는 논문대로 플레이어 순서를 state에 포함해 구현했다. 
-            # 하지만 성능이 제대로 나오지 않았고, 원래 레퍼런스 대로 state를 바꾼다. 
-            history.append([state(), learned_policy, None]) # board, policy, value (원래는 떨어트리는게 맞지만, 틱택토는 간단한 환경임으로 시간 순으로 누적하지 않는다.)
+            history.append([state(), learned_policy, None]) 
 
-            # 정책에 따른 행동 구하기
+            # get legal action 
             action = np.random.choice(state.get_legal_actions(), p=legal_policy)
 
             # step
             state = state.next(action)
 
-        # ====== history : value 일괄 업데이트 ======
-        # end state 가치 기준
+        # ====== history : update whole value ======
         value = self.get_first_player_value(state)
 
-        for i in range(len(history)):
-            history[i][-1] = value
+        for idx in range(len(history)):
+            history[idx][-1] = value
+            self.history.append(history[idx])
+            # reverse value 
             value = -value
 
-        return history
-
     def _self_play(self):
-        # n_selfplay 횟수 만큼 single play 시행
-        for i in range(self.n_selfplay):
-            single_history = self._single_play(i)
-            self.history.extend(single_history)
+        '''
+        _self_play() -> None
+            > print : 10 idx during game 
 
+        This method performs self play to make history for nn training.
+        '''
+        for i in range(self.n_selfplay):
+            self._single_play()
             if (i+1) % (self.n_selfplay // 10) == 0:
                 print(f"self play {i+1} / {self.n_selfplay}")
 
