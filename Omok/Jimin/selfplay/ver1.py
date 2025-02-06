@@ -89,9 +89,10 @@ class SelfPlay:
         for i in range(self.n_selfplay):
             self._single_play()
             if (i+1) % (self.n_selfplay // 10) == 0:
-                print(f"self play {i+1} / {self.n_selfplay} ({TOTAL_SELFPLAY})")
+                print(f"self play :  {i+1} / {self.n_selfplay} | {self.idx * self.n_selfplay + i+1} / {TOTAL_SELFPLAY}")
 
     def __call__(self, idx):
+        self.idx = idx
         self.mcts = MCTS(self.n_playout)
         self._self_play()
          # discount temp
