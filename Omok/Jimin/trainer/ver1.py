@@ -73,8 +73,18 @@ class TrainNetwork:
 
 
     def __call__(self, history):
+        print("")
         print("> Train Started.")
-        self._train(history)
+        for i in range(TRAIN_EPOCHS):
+            self._train(history)
+
+            if (i+1) % (TRAIN_EPOCHS // 10) == 0:
+                p_losses, v_losses, total_losses = zip(*self.losses)
+                print(f"> train step {i+1} / {TRAIN_EPOCHS} | (mean) p_loss : {np.mean(p_losses):.3f} v_loss : {np.mean(v_losses):.3f} | lr : {self.scheduler.get_last_lr()}")
+
+        print("> Train Ended.")
+        self.scheduler.step()
+        
 
     def update_model(self, model):
         self.model.load_state_dict(model.state_dict())

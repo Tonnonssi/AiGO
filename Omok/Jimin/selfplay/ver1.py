@@ -1,6 +1,7 @@
 from state.ver2 import *
 from MCTS.ver1 import *
 from collections import deque
+from main.hyperParams import *
 
 State = select_state(STATE_DIM)
 
@@ -88,7 +89,7 @@ class SelfPlay:
         for i in range(self.n_selfplay):
             self._single_play()
             if (i+1) % (self.n_selfplay // 10) == 0:
-                print(f"self play {i+1} / {self.n_selfplay}")
+                print(f"self play {i+1} / {self.n_selfplay} ({TOTAL_SELFPLAY})")
 
     def __call__(self, idx):
         self.mcts = MCTS(self.n_playout)

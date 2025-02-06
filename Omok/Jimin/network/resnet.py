@@ -76,7 +76,7 @@ class Network(nn.Module):
         x = x.view(x.size(0), -1)  # Flatten
 
         p, v = self.policy_head(x), self.value_head(x)
-        p, v = self.softmax(p), self.tanh(v) # 확률로 변환
+        p, v = self.softmax(F.relu(p)), self.tanh(v) # 확률로 변환
 
         return p, v
     
