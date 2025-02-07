@@ -57,8 +57,12 @@ class TrainNetwork:
         raw_policy, value = self.model(states)
 
         # Corrected loss calculations
-        p_loss = self.cross_entropy_loss(raw_policy, target_policies)
-        # p_loss = F.kl_div(F.log_softmax(raw_policy, dim=1), target_policies, reduction='batchmean')
+        # p_loss = self.cross_entropy_loss(raw_policy, target_policies)
+        # p_loss = F.kl_div(raw_policy.log(), target_policies, reduction='batchmean')
+
+        # cross entropy 
+        log_p = torch.log(raw_policy)
+        p_loss = -torch.mean(torch.sum(target_policies * log_p, 1))
         v_loss = self.mse_loss(value, target_values)
 
         total_loss = p_loss + v_loss
