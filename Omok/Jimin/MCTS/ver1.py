@@ -216,8 +216,7 @@ def predict(model, state):
     device = next(model.parameters()).device
 
     # reshape & put on device 
-    x = torch.tensor(state(), dtype=torch.float32).reshape(1,-1,*STATE_SHAPE) # state.board.shape
-    x = x.to(device)
+    x = torch.tensor(state(), dtype=torch.float32, device=device).reshape(1,-1,*STATE_SHAPE) # state.board.shape
 
     model.eval()
 

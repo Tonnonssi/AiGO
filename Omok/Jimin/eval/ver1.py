@@ -96,7 +96,7 @@ class EvalNetwork:
         if average_point >= 0.55:
             self._update_best_model()
 
-        self.win_rate = round(self.game_result['win'] / sum(self.game_result.values()), 2), (round(self.game_result['win'] + self.game_result['draw']) / sum(self.game_result.values()), 2)
+        self.win_rate = round(self.game_result['win'] / sum(self.game_result.values()), 2), 0
         print(f"Win rate : {self.win_rate[0]:.2f}")
 
     def _single_play(self, next_action_methods):

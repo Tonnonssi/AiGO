@@ -1,5 +1,5 @@
 # game info # 
-TRAIN_EPOCHS = 1000
+TRAIN_EPOCHS = 1500
 STATE_DIM = 4 # 2,3,4,5
 
 # nn #
@@ -8,22 +8,22 @@ N_RESIDUAL_BLOCK = 16
 BATCH_SIZE = 512 # 128
 
 # learning rate #
-LEARNING_RATE = 2e-3
-LEARN_DECAY = 0.5
-LEARN_EPOCH = 50
+LEARNING_RATE = 1e-3
+LEARN_DECAY = 0.1
+LEARN_EPOCH = 100
 
 # Temperture : Boltzman #
-TEMP_DISCOUNT = 0.9857
+TEMP_DISCOUNT = 1.0
 TRAIN_TEMPERATURE = 1.0  # 볼츠만 분포의 온도 파라미터 
-EVAL_TEMPERATURE = 1.0  # 볼츠만 분포 온도 파라미터 
+EVAL_TEMPERATURE = 0  # 볼츠만 분포 온도 파라미터 
 
 # selfplay #
 TOTAL_SELFPLAY = 2000
-N_SELFPLAY = 20 
+N_SELFPLAY = 10 # train interval 
 N_ITER = TOTAL_SELFPLAY // N_SELFPLAY
 
 EVAL_GAME_COUNT = 20  # 평가 1회 당 게임 수(오리지널: 400)
-N_PLAYOUT = 200 # 정책을 구할 때 시뮬레이션 횟수 (오리지널 : 1600)
+N_PLAYOUT = 400 # 정책을 구할 때 시뮬레이션 횟수 (오리지널 : 1600)
 
 # exploration #
 C_PUCT = 5.0
