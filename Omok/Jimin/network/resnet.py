@@ -7,8 +7,7 @@ import torch.nn.functional as F
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from main.hyperParams import *
-from main.gameInfo import *
+from main.config import *
 
 # ======== 합성곱 레이어 ===========
 class ConvLayer(nn.Module):

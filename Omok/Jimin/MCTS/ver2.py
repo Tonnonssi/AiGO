@@ -9,7 +9,7 @@ import random
 import numpy as np
 from math import sqrt
 
-from main.gameInfo import *
+from main.  import *
 
 
 class MCTS:

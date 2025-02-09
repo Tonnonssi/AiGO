@@ -3,8 +3,7 @@ import random
 import numpy as np
 from math import sqrt
 
-from main.gameInfo import *
-from main.hyperParams import *
+from main.config import *
 
 
 class MCTS:
@@ -53,6 +52,7 @@ class MCTS:
         return legal_policy
 
     def get_legal_actions_of(self, model, temp, with_policy=False):
+        # dirichlet dist 여기에 추가 요망
         '''
          get_legal_actions_of(model, temp, with_policy=False) ->  get_legal_actions_of : method
 
@@ -208,7 +208,7 @@ def get_n_child(child_nodes : list):
 
 def predict(model, state):
     '''
-    predict(model : nn.Module, state : class) -> legal_policy : list, value : float
+    predict(model : nn.Module, state : class) -> legal_policy : list[float], value : float
 
     This method returns *legal* policy & value of current state.
     '''
@@ -216,7 +216,7 @@ def predict(model, state):
     device = next(model.parameters()).device
 
     # reshape & put on device 
-    x = torch.tensor(state(), dtype=torch.float32, device=device).reshape(1,-1,*STATE_SHAPE) # state.board.shape
+    x = torch.tensor(state(), dtype=torch.float32, device=device).reshape(1,-1,*STATE_SHAPE) 
 
     model.eval()
 

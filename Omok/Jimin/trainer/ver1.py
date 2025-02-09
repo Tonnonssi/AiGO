@@ -6,8 +6,8 @@ import torch.optim as optim
 import numpy as np
 import random
 
-from main.setDevice import *
-from main.gameInfo import *
+from utils.setDevice import *
+from main.config import *
 
 class TrainNetwork:
     '''
@@ -29,13 +29,9 @@ class TrainNetwork:
         self.learn_decay = learn_decay
         self.learn_epoch = learn_epoch
 
-        # define loss ftn
-        self.mse_loss = F.mse_loss
-        self.cross_entropy_loss = nn.CrossEntropyLoss()
-
         # Optimizer & Scheduler
-        self.L2 = 1e-4
-        self.optimizer = optim.Adam(self.model.parameters(), lr=self.init_learning_rate, eps=1e-4, weight_decay=self.L2)
+        self.L2, self.eps = L2, 1e-4
+        self.optimizer = optim.Adam(self.model.parameters(), lr=self.init_learning_rate, eps=self.eps, weight_decay=self.L2)
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=self.learn_epoch, gamma=self.learn_decay)
 
 
@@ -63,7 +59,9 @@ class TrainNetwork:
         # cross entropy 
         log_p = torch.log(raw_policy)
         p_loss = -torch.mean(torch.sum(target_policies * log_p, 1))
-        v_loss = self.mse_loss(value, target_values)
+
+        # mse loss 
+        v_loss = F.mse_loss(value, target_values)
 
         total_loss = p_loss + v_loss
 
@@ -84,7 +82,7 @@ class TrainNetwork:
 
             if (i+1) % (TRAIN_EPOCHS // 10) == 0:
                 p_losses, v_losses, total_losses = zip(*self.losses)
-                print(f"step : {i+1} / {TRAIN_EPOCHS} | (mean) p_loss : {np.mean(p_losses):.3f} v_loss : {np.mean(v_losses):.3f} | lr : {self.scheduler.get_last_lr()}")
+                print(f"step : {i+1} / {TRAIN_EPOCHS} | (mean) p_loss : {np.mean(p_losses[-10:]):.3f} v_loss : {np.mean(v_losses[-10:]):.3f} | lr : {self.scheduler.get_last_lr()}")
 
         print("> Train Ended.")
         self.scheduler.step()

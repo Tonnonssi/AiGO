@@ -4,7 +4,7 @@ import numpy as np
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from main.gameInfo import *
+from main.config  import *
 
 class State:
     def __init__(self, my_actions=None, enemy_actions=None, state_shape=STATE_SHAPE):

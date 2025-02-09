@@ -2,9 +2,9 @@ import matplotlib.pyplot as plt
 from IPython.display import display
 
 from MCTS.ver1 import *
-from main.hyperParams import *
+from main.config import *
 from state.ver2 import *
-from visualize.valid_tool import *
+from utils.valid_tool import *
 
 # select state 
 State = select_state(STATE_DIM)

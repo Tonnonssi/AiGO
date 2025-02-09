@@ -1,7 +1,7 @@
 import os
 import torch
 
-from main.fileInfo import *
+from main.config import *
 
 def get_cwd_path(fname, path_name=None):
     f_cwd = os.path.abspath(os.path.join(os.getcwd(), ".."))

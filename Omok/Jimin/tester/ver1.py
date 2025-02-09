@@ -3,14 +3,13 @@ import matplotlib.pyplot as plt
 from IPython.display import display
 
 from MCTS.ver1 import *
-from main.hyperParams import *
+from main.config import *
 from state.ver2 import *
-
 
 class ModelvsHuman:
     def __init__(self, model):
         self.model = model
-        self.mcts = MCTS(EVAL_GAME_COUNT)
+        self.mcts = MCTS(20)
         self.get_next_actions = self.mcts.get_legal_actions_of(model, 0)
 
     def render(self, state):

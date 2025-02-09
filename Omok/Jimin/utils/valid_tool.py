@@ -6,7 +6,7 @@ import numpy as np
 import copy
 
 from state.ver2 import *
-from main.gameInfo import *
+from main.config import *
 
 def is_first_player(state):
         n_my_actions = np.sum(state[0])
@@ -67,7 +67,6 @@ def check_consecutive(input):
             return True, col_lst
                 
     return False, []
-
 
 def draw_omok_board(state, next_action=None, ax=None):
     '''
@@ -136,7 +135,6 @@ def draw_omok_board(state, next_action=None, ax=None):
     ax.set_xticks(range(0, ncol))
     ax.set_yticks(range(0, nrow))
     ax.set_aspect('equal')
-
 
 def visualize_MCTS_visits(visits, state, next_action=None, ax=None, agent_type='recent'):
     '''
@@ -411,14 +409,45 @@ def visualize_loss(losses, ax=None, path=None, download=False):
     ax.set_ylabel("loss")
     ax.set_title("Loss per Steps")
     ax.legend()
-    
-    # Remove grid
-    ax.grid(False)
 
     if download:
         if path is None:
             path = os.path.abspath(os.path.join(os.getcwd(), ".."))
         plt.savefig(f"{path}/loss.png", dpi=300, bbox_inches='tight')
+
+    if show_plot:
+        plt.show()
+
+def visualize_n_steps(n_steps, window_size, ax=None, path=None, download=False):
+    show_plot = False
+
+    if ax is None:
+        _, ax = plt.subplots(figsize=(6, 6))
+        show_plot = True  # 새 figure를 생성한 경우 show 활성화
+
+    x = np.arange(len(n_steps))
+
+    # 이동 평균 계산 
+    moving_avg = np.convolve(n_steps, np.ones(window_size)/window_size, mode='valid')
+
+    # 산점도 그리기 (왼쪽 → 오른쪽 색 그라데이션)
+    ax.scatter(x, n_steps, c=x, cmap='plasma', alpha=0.3, label="Original Data")
+
+    # 이동 평균 그리기
+    ax.plot(x[:len(moving_avg)], moving_avg, color='black', linewidth=1, label=f"{window_size}-point Moving Average")
+
+    # X-axis settings
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=10))  # x축에 10개의 값만 표시
+
+    ax.set_xlabel("n_selfplay")
+    ax.set_ylabel("game_steps")
+    ax.set_title("game steps of total selfplays")
+    ax.legend()
+
+    if download:
+        if path is None:
+            path = os.path.abspath(os.path.join(os.getcwd(), ".."))
+        plt.savefig(f"{path}/n_steps.png", dpi=300, bbox_inches='tight')
 
     if show_plot:
         plt.show()
