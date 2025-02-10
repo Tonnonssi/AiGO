@@ -25,7 +25,7 @@ class Selfplay(ABC):
         self.temp = temp
 
         # selfPlay's yield
-        self.history = deque(maxlen=10000)
+        self.history = deque(maxlen=MEM_SIZE)
         self.n_steps = []
 
         # mcts instance should reset 
@@ -63,10 +63,10 @@ class Selfplay(ABC):
         print("> Self play Started!")
         for i in range(self.n_selfplay):
             self._single_play()
-            if (i+1) % (self.n_selfplay // 10) == 0:
-                print(f"self play :  {i+1} / {self.n_selfplay} | {self.idx * self.n_selfplay + i+1} / {TOTAL_SELFPLAY}")
+            # if (i+1) % (self.n_selfplay // 10) == 0:
+            print(f"self play :  {i+1} / {self.n_selfplay} | {self.idx * self.n_selfplay + i+1} / {TOTAL_SELFPLAY} | n_steps : {np.mean(self.n_steps[-self.n_selfplay:])}")
 
-        print(f"> (mean) n_steps : {np.mean(self.n_steps[-self.n_selfplay:])}")
+        # print(f"> (mean) n_steps : {np.mean(self.n_steps[-self.n_selfplay:])}")
     def __call__(self, idx):
         self.idx = idx
         self.mcts = MCTS(self.n_playout)
@@ -142,12 +142,11 @@ def get_selfplay_class():
                 if n_steps < EXPLORE_REGULATION:
                     legal_policy = np.array(self.mcts.get_legal_policy(state, self.model, self.temp))
 
-                    nosie = np.random.dirichlet(0.3*np.ones(len(legal_policy)))
-                    legal_policy = 0.75*legal_policy + 0.25*nosie
-
                 else:
                     legal_policy = self.mcts.get_legal_policy(state, self.model, 0) 
 
+                nosie = np.random.dirichlet(0.3*np.ones(len(legal_policy)))
+                legal_policy = 0.75*legal_policy + 0.25*nosie
                 learned_policy[legal_actions] = legal_policy
                 
                 history.append([state(), learned_policy, None]) 
