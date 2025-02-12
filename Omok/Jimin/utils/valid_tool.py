@@ -237,7 +237,7 @@ def visualize_current_policy(policy, state, next_action=None, ax=None, agent_typ
     # BuPu
     ax.set_title("current Policy")
 
-def visualize_pack(agent_type, state, visit, policy, next_action, step=0, path=None, download=False):
+def visualize_pack(agent_type, state, visit, policy, next_action, step=0, path=None, download=False, show=False):
     '''
     visualize 3 : omok board, n visits, current policy
     '''
@@ -255,7 +255,10 @@ def visualize_pack(agent_type, state, visit, policy, next_action, step=0, path=N
             path = os.path.abspath(os.path.join(os.getcwd(), ".."))
         plt.savefig(f"{path}/step_{step}.png", dpi=300, bbox_inches='tight')
 
-    plt.show()
+    if show:
+        plt.show()
+    else:
+        plt.close() 
 
 def visualize_game_result(result:dict, path=None, download=None):
     '''

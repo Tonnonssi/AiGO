@@ -55,7 +55,7 @@ class Network(nn.Module):
         self.n_kernel = n_kernel
         self.state_dim = state_dim
         self.n_actions = n_actions
-        self.n_fc_nodes = n_kernel  # Match to the number of kernels
+        self.n_fc_nodes = n_kernel 
 
         # nn
         self.conv_layer = ConvLayer(self.state_dim, self.n_kernel)
@@ -75,7 +75,7 @@ class Network(nn.Module):
         x = x.view(x.size(0), -1)  # Flatten
 
         p, v = self.policy_head(x), self.value_head(x)
-        p, v = self.softmax(F.relu(p)), self.tanh(v) # 확률로 변환
+        p, v = self.softmax(p), self.tanh(v) # 확률로 변환
 
         return p, v
     

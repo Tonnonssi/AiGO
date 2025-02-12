@@ -4,6 +4,7 @@ from collections import deque
 from abc import ABC, abstractmethod
 
 from main.config import *
+from utils.transpose_state import *
 
 State = select_state(STATE_DIM)
 
@@ -60,13 +61,10 @@ class Selfplay(ABC):
 
         This method performs self play to make history for nn training.
         '''
-        print("> Self play Started!")
         for i in range(self.n_selfplay):
             self._single_play()
-            # if (i+1) % (self.n_selfplay // 10) == 0:
-            print(f"self play :  {i+1} / {self.n_selfplay} | {self.idx * self.n_selfplay + i+1} / {TOTAL_SELFPLAY} | n_steps : {np.mean(self.n_steps[-self.n_selfplay:])}")
+            print(f"self play :  {self.idx * self.n_selfplay + i+1} / {TOTAL_SELFPLAY} | n_steps : {self.n_steps[-1]}")
 
-        # print(f"> (mean) n_steps : {np.mean(self.n_steps[-self.n_selfplay:])}")
     def __call__(self, idx):
         self.idx = idx
         self.mcts = MCTS(self.n_playout)
@@ -75,6 +73,15 @@ class Selfplay(ABC):
     def update_model(self, model):
         self.model.load_state_dict(model.state_dict())
 
+    def _get_transposed_history(self, hist):
+        state, policy, value = hist
+        policy = policy.reshape(-1,*STATE_SHAPE)
+        states_lst = [ftn(state) for ftn in rotate_ftns]
+        policy_lst = [ftn(policy).reshape(-1) for ftn in rotate_ftns]
+        value_lst = [value] * len(rotate_ftns)
+        
+        for h in zip(states_lst, policy_lst, value_lst):
+            self.history.append(h)
 
 def get_selfplay_class():
     class UnregulatedSelfplay(Selfplay):
@@ -115,6 +122,7 @@ def get_selfplay_class():
 
             for idx in range(len(history)):
                 history[idx][-1] = value
+                self._get_transposed_history(history[idx])
                 self.history.append(history[idx])
                 # reverse value 
                 value = -value
@@ -163,6 +171,7 @@ def get_selfplay_class():
 
             for idx in range(len(history)):
                 history[idx][-1] = value
+                self._get_transposed_history(history[idx])
                 self.history.append(history[idx])
                 # reverse value 
                 value = -value

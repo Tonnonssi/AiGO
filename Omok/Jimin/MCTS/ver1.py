@@ -4,6 +4,7 @@ import numpy as np
 from math import sqrt
 
 from main.config import *
+from utils.transpose_state import *
 
 
 class MCTS:
@@ -52,7 +53,6 @@ class MCTS:
         return legal_policy
 
     def get_legal_actions_of(self, model, temp, with_policy=False):
-        # dirichlet dist 여기에 추가 요망
         '''
          get_legal_actions_of(model, temp, with_policy=False) ->  get_legal_actions_of : method
 
@@ -216,16 +216,34 @@ def predict(model, state):
     device = next(model.parameters()).device
 
     # reshape & put on device 
-    x = torch.tensor(state(), dtype=torch.float32, device=device).reshape(1,-1,*STATE_SHAPE) 
+    if ALLOW_TRANSPOSE:
+        idx = random.choice(range(8))
+        rotate_ftn, revert_ftn = get_dihedral_transpose_ftns(idx)
+        rotated_state = rotate_ftn(state()).copy()
+        x = torch.tensor(rotated_state, dtype=torch.float32, device=device).reshape(1,-1,*STATE_SHAPE) 
 
-    model.eval()
+        model.eval()
 
-    with torch.no_grad():
-        raw_policy, value = model(x)
-        raw_policy, value = raw_policy.detach().cpu().numpy().reshape(-1), float(value.detach())
+        with torch.no_grad():
+            raw_policy, value = model(x)
+            raw_policy, value = raw_policy.detach().cpu().numpy().reshape(-1,*STATE_SHAPE), float(value.detach())
+            reverted_raw_policy = revert_ftn(raw_policy).reshape(-1)
 
-    # get legal policy
-    legal_policy = raw_policy[state.get_legal_actions()]
-    legal_policy /= sum(legal_policy) if sum(legal_policy) else 1
+        # get legal policy
+        legal_policy = reverted_raw_policy[state.get_legal_actions()]
+        
+    else:
+        x = torch.tensor(state(), dtype=torch.float32, device=device).reshape(1,-1,*STATE_SHAPE) 
+
+        model.eval()
+
+        with torch.no_grad():
+            raw_policy, value = model(x)
+            raw_policy, value = raw_policy.detach().cpu().numpy().reshape(-1), float(value.detach())
+
+        # get legal policy
+        legal_policy = raw_policy[state.get_legal_actions()]
+        # legal_policy /= sum(legal_policy) if sum(legal_policy) else 1
 
     return legal_policy, value
+

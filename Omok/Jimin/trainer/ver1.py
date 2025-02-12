@@ -31,7 +31,7 @@ class TrainNetwork:
 
         # Optimizer & Scheduler
         self.L2, self.eps = L2, 1e-4
-        self.optimizer = optim.Adam(self.model.parameters(), lr=self.init_learning_rate, eps=self.eps, weight_decay=self.L2)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=self.init_learning_rate, weight_decay=self.L2) # eps=self.eps
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=self.learn_epoch, gamma=self.learn_decay)
 
 
@@ -41,13 +41,11 @@ class TrainNetwork:
         sample = random.sample(history, self.batch_size)
         states, target_policies, target_values = zip(*sample)
 
-        states = torch.tensor(np.array(states), dtype=torch.float32).view(self.batch_size, -1, *STATE_SHAPE)  # (BATCH, STATE_DIM, *STATE_SHAPE)
-        target_policies = torch.tensor(np.array(target_policies), dtype=torch.float32).view(self.batch_size, -1)  # (BATCH, N_ACTIONS)
-        target_values = torch.tensor(np.array(target_values), dtype=torch.float32).view(self.batch_size, -1)  # (BATCH, 1)
+        states = torch.tensor(np.array(states), dtype=torch.float32, device=device).view(self.batch_size, -1, *STATE_SHAPE)  # (BATCH, STATE_DIM, *STATE_SHAPE)
+        target_policies = torch.tensor(np.array(target_policies), dtype=torch.float32, device=device).view(self.batch_size, -1)  # (BATCH, N_ACTIONS)
+        target_values = torch.tensor(np.array(target_values), dtype=torch.float32, device=device).view(self.batch_size, -1)  # (BATCH, 1)
 
-        # put on device
-        states, target_policies, target_values = states.to(self.device), target_policies.to(self.device), target_values.to(self.device)
-
+        # Train Start 
         self.model.train()
 
         raw_policy, value = self.model(states)
