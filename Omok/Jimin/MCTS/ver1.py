@@ -29,7 +29,7 @@ class MCTS:
         '''
 
         # define root node
-        root_node = Node(state, 0)
+        root_node = Node(state, 1.0)
 
         # launch MCTS == expansion of Tree 
         for _ in range(self.n_playout):

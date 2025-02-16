@@ -1,7 +1,7 @@
 import os
 
 # game info # 
-STATE_SHAPE = (9,9) 
+STATE_SHAPE = (9, 9) 
 N_ACTIONS = STATE_SHAPE[0]*STATE_SHAPE[1]
 WINNING_CONDITION = 5
 

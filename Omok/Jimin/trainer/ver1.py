@@ -80,7 +80,7 @@ class TrainNetwork:
 
             if (i+1) % (TRAIN_EPOCHS // 10) == 0:
                 p_losses, v_losses, total_losses = zip(*self.losses)
-                print(f"step : {i+1} / {TRAIN_EPOCHS} | (mean) p_loss : {np.mean(p_losses[-10:]):.3f} v_loss : {np.mean(v_losses[-10:]):.3f} | lr : {self.scheduler.get_last_lr()}")
+                print(f"step : {i+1} / {TRAIN_EPOCHS} | (mean) p_loss : {np.mean(p_losses[-(TRAIN_EPOCHS // 10):]):.3f} v_loss : {np.mean(v_losses[-(TRAIN_EPOCHS // 10):]):.3f} | lr : {self.scheduler.get_last_lr()}")
 
         print("> Train Ended.")
         self.scheduler.step()
