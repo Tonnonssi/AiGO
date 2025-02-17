@@ -3,6 +3,7 @@ import os
 # game info # 
 STATE_SHAPE = (9, 9) 
 N_ACTIONS = STATE_SHAPE[0]*STATE_SHAPE[1]
+ACTION_SPACE = range(N_ACTIONS)
 WINNING_CONDITION = 5
 
 # file setting #

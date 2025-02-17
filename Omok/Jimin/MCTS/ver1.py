@@ -3,8 +3,8 @@ import random
 import numpy as np
 from math import sqrt
 
-from main.config import *
-from utils.transpose_state import *
+from Omok.Jimin.main.config import *
+from Omok.Jimin.utils.transpose_state import *
 
 
 class MCTS:
