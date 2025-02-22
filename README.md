@@ -107,7 +107,7 @@
 </tr>
 <tr>
  <td>
-        <img src=" ./img/HyunseoKim.jpeg" width=120/>
+        <img src="./img/HyunseoKim.jpeg" width=120/>
     </td>
     <td>
     <b style="font-size:15px">김현서 (Hyunseo Kim)</b> <br><br>
