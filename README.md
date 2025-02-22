@@ -45,14 +45,14 @@
 
 ## Member
 ![img](./img/AiGO.jpeg)
-<table border="0" style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+<table border="0" style="width: 150%; border-collapse: collapse; table-layout: fixed;">
 <tr>
     <td> 
     <img src="./img/JiminLee.jpg" width=120/>
     </td>
 
 <td>
-<b style="font-size:15px">이지민 (Jimin Lee)</b> <hr>
+<b style="font-size:15px">이지민 (Jimin Lee)</b> <br><br>
         <a href="https://github.com/Tonnonssi">
         <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
         </a> 
@@ -67,7 +67,7 @@
     </td>
 
 <td>
-<b style="font-size:15px">김도희 (DoHee Kim)</b> <hr> 
+<b style="font-size:15px">김도희 (DoHee Kim)</b> <br><br>
         <a href="https://github.com/doheek1m">
         <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
         </a> 
@@ -82,7 +82,7 @@
     </td>
 
 <td>
-<b style="font-size:15px">이승연 (Seungyeon Lee)</b> <hr> 
+<b style="font-size:15px">이승연 (Seungyeon Lee)</b> <br><br>
         <a href="https://github.com/sabina381">
         <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
         </a> 
@@ -96,7 +96,7 @@
     </td>
 
 <td>
-<b style="font-size:15px">이은나 (Eunna Lee)</b> <hr> 
+<b style="font-size:15px">이은나 (Eunna Lee)</b> <br><br>
         <a href="https://github.com/Eunnaeooi">
         <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
         </a> 
@@ -110,7 +110,7 @@
         <img src=" ./img/HyunseoKim.jpeg" width=120/>
     </td>
     <td>
-    <b style="font-size:15px">김현서 (Hyunseo Kim)</b> <hr>
+    <b style="font-size:15px">김현서 (Hyunseo Kim)</b> <br><br>
     <a href="https://github.com/HyunseoKim812">
     <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
     </a>
@@ -124,8 +124,8 @@
     </td>
 
 <td>
-<b style="font-size:15px">이정연 (Jungyeon Lee)</b> <hr> 
-인공지능 주전 <br> <br> 
+<b style="font-size:15px">이정연 (Jungyeon Lee)</b> <br>
+<br> 
         <a href="https://github.com/LeeJungYeonn">
         <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
         </a> 
