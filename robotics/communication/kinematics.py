@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
 
-link_lengths = [7.5, 12.3, 12.7, 17.5] # ( 단위 : cm )
+link_lengths = [7.5, 12.3, 13, 10.5] # ( 단위 : cm )
 '''
 L1 = 7.5   # Base to shoulder
 L2 = 12.3  # Shoulder to elbow
@@ -10,18 +10,16 @@ L3 = 12.7  # Elbow to wrist
 L4 = 17.5  # Wrist to end-effector
 '''
 
-initial_positions = np.radians([90, 90, 90, 90, 90, 0])
+initial_positions = np.radians([90, 90, 90, 90])
 
-bounds = [(np.radians(0), np.radians(180)),   # θ1: 허리 회전
+bounds = [(np.radians(0), np.radians(180)),   # θ1: 허리 : 전체적인 각도 조절 
           (np.radians(0), np.radians(180)),   # θ2: 어깨
           (np.radians(0), np.radians(180)),   # θ3: 팔꿈치
-          (np.radians(0), np.radians(180)),   # θ4: 손목 회전
-          (np.radians(0), np.radians(180)),   # θ5: 손목 pitch
-          (np.radians(0), np.radians(90))]    # θ6: 집게
+          (np.radians(0), np.radians(180))]   # θ4: 손목 : 흡착기 각도 조절 
 
 # === 정방향 기구학 (Forward Kinematics) ===
 def forwardKinematics(joint_angles):
-    θ1, θ2, θ3, θ4, _, _ = joint_angles  # 각도 입력
+    θ1, θ2, θ3, θ4 = joint_angles  # 각도 입력
 
     # 어깨(Shoulder) 좌표 계산
     x_shoulder = link_lengths[0] * np.cos(θ1)
@@ -61,6 +59,6 @@ def inverseKinematics(target_position):
 
 
 if __name__=="__main__":
-    target_position = np.array([-20, 10, 15])
+    target_position = np.array([5, 12, 5])
     angles = inverseKinematics(target_position)
     print("각 관절의 최적 회전각 (Degrees):", list(angles))

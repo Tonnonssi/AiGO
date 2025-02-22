@@ -9,7 +9,7 @@ State = select_state(STATE_DIM)
 
 class EvalNetwork:
     '''
-    EvalNetwork(best_model:nn.Module, eval_game_count:int, eval_temperature:float, eval_count:int)
+    EvalNetwork(best_model:nn.Module, eval_selfplay:int, eval_temperature:float, eval_count:int)
     -----------
     The EvalNetwork class manages the evaluation process of a neural network during training. 
     It assesses the performance of a newly trained model (recent_model) against the current best model (best_model) 
@@ -17,9 +17,9 @@ class EvalNetwork:
     based on its performance in multiple evaluation games.
 
     '''
-    def __init__(self, best_model, eval_game_count, eval_temperature, eval_count):
+    def __init__(self, best_model, eval_selfplay, eval_temperature, eval_count, n_actions):
         # eval info
-        self.eval_game_count = eval_game_count
+        self.eval_selfplay = eval_selfplay
         self.eval_temperature = eval_temperature
 
         # models
@@ -38,6 +38,8 @@ class EvalNetwork:
         self.game_result = {'lose' : 0,
                             'draw' : 0,
                             'win' : 0}
+        
+        self.n_actions = n_actions
 
     def _first_player_point(self, ended_state):
         '''
@@ -72,7 +74,7 @@ class EvalNetwork:
 
         total_point = 0
 
-        for i in range(self.eval_game_count):
+        for i in range(self.eval_selfplay):
             if i % 2 == 0: # first player is latest model 
                 point = self._single_play(next_actions)
                 self.game_result[list(self.game_result.keys())[int(point*2)]] += 1
@@ -83,10 +85,10 @@ class EvalNetwork:
                 self.game_result[list(self.game_result.keys())[int(point*2)]] += 1
                 total_point += point
 
-            if (i+1) % (self.eval_game_count // 5) == 0:
-                print(f"eval game {i+1} / {self.eval_game_count}")
+            if (i+1) % (self.eval_selfplay // 5) == 0:
+                print(f"eval game {i+1} / {self.eval_selfplay}")
 
-        average_point = total_point / self.eval_game_count
+        average_point = total_point / self.eval_selfplay
 
         print('Average Point of Latest Model', average_point)
 
@@ -131,7 +133,7 @@ class EvalNetwork:
 
         state = State()
 
-        for step in range(N_ACTIONS):
+        for step in range(self.n_actions):
             if state.is_done():
                 return total_game_steps
 
