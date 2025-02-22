@@ -1,3 +1,5 @@
 *.pth
 *.png
 *.txt
+*__pycache__
+*.vscode

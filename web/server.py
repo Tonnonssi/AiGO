@@ -4,22 +4,29 @@ import os
 # 현재 파일(server.py)이 있는 경로 기준으로 상위 디렉토리(AiGO)를 sys.path에 추가
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from web_utils.predict import *
 from flask import Flask, request, jsonify, render_template
-from Omok.Jimin.state.ver2 import *
 import numpy as np
-import time
 
+from Omok.state import *
+from Omok.MCTS import *
+from models.load_model import *
+
+# web utils 
 app = Flask(__name__)
-State = select_state(STATE_DIM)
 
-# (2,9,9) 크기의 바둑판 초기화
-game_result = 2 # (win, draw, continue)
+# State / board 
+State = select_state(STATE_DIM)
 state = State()
-is_player_turn = None
-is_second_player = None
 board = np.zeros((2, 9, 9), dtype=int)
 
+# game status 
+game_result = 2 # (win, draw, continue)
+is_player_turn = None
+is_second_player = None
+
+# alpha zero setting
+mcts = MCTS(N_PLAYOUT)
+get_next_action = mcts.get_legal_actions_of(model, 0, with_policy=False)
 
 @app.route('/')
 def home():

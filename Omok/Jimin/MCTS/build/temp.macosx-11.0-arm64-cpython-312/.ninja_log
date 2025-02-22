@@ -1,8 +1,0 @@
-# ninja log v6
-0	8318	1738558836861441156	/Users/ijimin/Documents/GitHub/AiGO/Omok/Jimin/MCTS/build/temp.macosx-11.0-arm64-cpython-312/binding.o	7839ee9096904558
-1	8441	1738558836861721612	/Users/ijimin/Documents/GitHub/AiGO/Omok/Jimin/MCTS/build/temp.macosx-11.0-arm64-cpython-312/mcts.o	d4adc9ef77b03a2d
-20	7819	1738559840629432879	/Users/ijimin/Documents/GitHub/AiGO/Omok/Jimin/MCTS/build/temp.macosx-11.0-arm64-cpython-312/binding.o	7839ee9096904558
-25	8312	1738562991529531440	/Users/ijimin/Documents/GitHub/AiGO/Omok/Jimin/MCTS/build/temp.macosx-11.0-arm64-cpython-312/mcts.o	d4adc9ef77b03a2d
-25	8370	1738562991528822043	/Users/ijimin/Documents/GitHub/AiGO/Omok/Jimin/MCTS/build/temp.macosx-11.0-arm64-cpython-312/binding.o	7839ee9096904558
-42	7683	1738564023853894848	/Users/ijimin/Documents/GitHub/AiGO/Omok/Jimin/MCTS/build/temp.macosx-11.0-arm64-cpython-312/mcts.o	d4adc9ef77b03a2d
-43	7811	1738588959278362225	/Users/ijimin/Documents/GitHub/AiGO/Omok/Jimin/MCTS/build/temp.macosx-11.0-arm64-cpython-312/mcts.o	d4adc9ef77b03a2d

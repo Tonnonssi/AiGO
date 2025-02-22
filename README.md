@@ -1,37 +1,137 @@
-# Omok  
+## About Code 
+### train info 
+> **main default setting** : `N_SELFPLAY=2000`, `N_PLAYOUT=400`, `ResNet x 10`  
+- takes 20 hours on an NVIDIA GFORCE 4090  
 
-## Team & Member
-AiGO(아이고)  
+### How to use
+1. **train / test**  
+- if you want to use new nn,  
+    Import in both `test.ipynb` and `train.ipynb` after adding a new neural network structure (.py) to the `network` folder.  
 
-## Coding Conventions
-1. **Class**
-   1. Name of Class : PascalCasing  
-   2. method : camelCasing + 동사가 먼저 나오는 형식 + 만약 너무 길면 아래다가 주석으로 설명
-      ```python
-        class Myclass:
-            def __init__(self):
-                pass
-            
-            def plus1(self,a):
-                '''
-                act(a : type ) -> return a + 1 : int
-        
-                -------
-                이 함수는 a에 1을 더하는 함수입니다.
-                '''
-                return a+1
-            ```
-       => 주석다는 방법 :
-       함수명 ( input 파라미터 나열, :로 타입 명시) -> return output 파라미터 : 타입 명시
-       
-       ----------로 내용 분리  
-       함수 작동 원리 및 사용하는 곳 설명, 예제가 있어도 됨   
-   3. attribute : snake_casing
-   4. hidden method / attribute : `_` 를 앞에다 붙여 클래스 내부에서 사용함을 명시함 
-   5. 인스턴스 : 언더바, 명확한 이름 지향 
-  
-2. **Attribute** : snake_casing     
-3. **method** : camelCasing   
-3. **하이퍼파라미터** : UPPER_CASE   
-4. **들여쓰기** : 4칸   
-5. **문자열** : 외부로 출력되는 애는 “ ”, 나머지는 ‘ ’  
+- if you want to change game setting or hyper params,  
+    Change `config.txt`. 
+
+2. **web**  
+- run `server.py` in the `web` folder.  
+
+    ```
+    python server.py
+    ```
+
+- if you want to use new nn on web,  
+    set the new model in `models.load_model` after adding a new neural network structure (.py) to the `network` folder and a new model file (.pth/.pt) to the `models` folder *(recommended)*.
+
+3. **Colab**
+- put cloned file on g-drive.  
+- insert this code. 
+    ```py
+    from google.colab import drive
+    drive.mount('/content/drive')
+
+    sys.path.append('f_path')
+    ```
+
+
+4. **with CV**
+
+## Reference
+- [https://github.com/Jpub/AlphaZero.git](https://github.com/Jpub/AlphaZero.git)  
+- [https://github.com/junxiaosong/AlphaZero_Gomoku.git](https://github.com/junxiaosong/AlphaZero_Gomoku.git)   
+- [https://github.com/reinforcement-learning-kr/alpha_omok.git](https://github.com/reinforcement-learning-kr/alpha_omok.git)  
+
+## Result 
+📗 [Report (KR)]()  
+(시현 움짤)
+
+## Member
+![img](./img/AiGO.png)
+<table border="0" style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+<tr>
+    <td> 
+    <img src="./img/JiminLee.jpg" width=120/>
+    </td>
+
+<td>
+<b style="font-size:15px">이지민 (Jimin Lee)</b> <hr>
+        <a href="https://github.com/Tonnonssi">
+        <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:tonnonssi@gmail.com">
+            <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
+
+    
+</td>
+    <td> 
+    <img src="./img/DoHeeKim.jpeg" width=120/>
+    </td>
+
+<td>
+<b style="font-size:15px">김도희 (DoHee Kim)</b> <hr> 
+        <a href="https://github.com/doheek1m">
+        <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:ellakelly1222@gmail.com">
+        <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
+</td>
+</tr>
+ <tr>
+    <td> 
+    <img src="./img/SeungyeonLee.jpeg" width=120/>
+    </td>
+
+<td>
+<b style="font-size:15px">이승연 (Seungyeon Lee)</b> <hr> 
+        <a href="https://github.com/sabina381">
+        <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:sabina2378@ewhain.net">
+        <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
+</td>
+
+<td> 
+    <img src="./img/EunnaLee.jpeg" width=120/>
+    </td>
+
+<td>
+<b style="font-size:15px">이은나 (Eunna Lee)</b> <hr> 
+        <a href="https://github.com/Eunnaeooi">
+        <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:len_318@ewha.ac.kr">
+        <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
+</td>
+</tr>
+<tr>
+ <td>
+        <img src=" ./img/HyunseoKim.jpg" width=120/>
+    </td>
+    <td>
+    <b style="font-size:15px">김현서 (Hyunseo Kim)</b> <hr>
+    <a href="https://github.com/HyunseoKim812">
+    <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+    </a>
+    <a href="mailto:rlagustj812@gmail.com">
+    <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+    </a>
+    </td>
+
+<td> 
+    <img src="./img/JungyeonLee.jpeg" width=120/>
+    </td>
+
+<td>
+<b style="font-size:15px">이정연 (Jungyeon Lee)</b> <hr> 
+인공지능 주전 <br> <br> 
+        <a href="https://github.com/LeeJungYeonn">
+        <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:leejungyeon@ewha.ac.kr">
+        <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
+</td>
+</tr>
+</table>
