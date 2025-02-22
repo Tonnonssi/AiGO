@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.controls {
+    margin-top: 10px;
+}
+
+/* 캔버스 크기는 360x360으로 유지 */
+canvas {
+    background-color: #d2a155;
+    border: 4px solid black;
+    width: 360px;  
+    height: 360px;
+}
+
+.btn {
+    background: none; /* 배경색 제거 */
+    border: none; /* 테두리 제거 */
+    padding: 0; /* 버튼 내부 여백 제거 (선택 사항) */
+    cursor: pointer; /* 클릭 가능한 요소임을 표시 */
+}
+
+.btn:focus {
+    outline: none; /* 클릭 후 테두리 제거 */
+}
+
+.button-container {
+    width: 360px; /* 전체 컨테이너 너비 */
+    display: flex; /* Flexbox 적용 */
+    justify-content: space-between; /* 버튼 사이 널찍이 정렬 */
+    align-items: center; /* 버튼 정렬 */
+}

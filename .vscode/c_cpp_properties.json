@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "name": "macos-clang-arm64",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/opt/anaconda3/envs/AiGO/lib/python3.12/site-packages/torch/include",
+				"/opt/anaconda3/envs/AiGO/lib/python3.12/site-packages/torch/include/torch/csrc/api/include",
+				"/opt/anaconda3/envs/AiGO/include/python3.12",
+				"/opt/anaconda3/envs/AiGO/lib/python3.12/site-packages/torch/lib"
+      ],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "${default}",
+      "cppStandard": "${default}",
+      "intelliSenseMode": "macos-clang-arm64",
+      "compilerArgs": [
+        ""
+      ]
+    }
+  ],
+  "version": 4
+}
