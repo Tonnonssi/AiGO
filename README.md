@@ -44,7 +44,7 @@
 (시현 움짤)
 
 ## Member
-![img](./img/AiGO.png)
+![img](./img/AiGO.jpeg)
 <table border="0" style="width: 100%; border-collapse: collapse; table-layout: fixed;">
 <tr>
     <td> 
@@ -107,7 +107,7 @@
 </tr>
 <tr>
  <td>
-        <img src=" ./img/HyunseoKim.jpg" width=120/>
+        <img src=" ./img/HyunseoKim.jpeg" width=120/>
     </td>
     <td>
     <b style="font-size:15px">김현서 (Hyunseo Kim)</b> <hr>
