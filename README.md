@@ -45,7 +45,7 @@
 
 ## Member
 ![img](./img/AiGO.jpeg)
-<table border="0" style="width: 150%; border-collapse: collapse; table-layout: fixed;">
+<table border="0" style="width: 100%; border-collapse: collapse; table-layout: fixed; margin: auto;">
 <tr>
     <td> 
     <img src="./img/JiminLee.jpg" width=120/>
