@@ -3,3 +3,6 @@
 *.txt
 *__pycache__
 *.vscode
+*generate_md.py
+*.json
+*.sample.md
