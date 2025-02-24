@@ -72,11 +72,12 @@ interact.ipynb  # Human-robot interaction
 
 ## Result 
 📗 [Report (KR)]()  
-(시현 움짤)
+(시현 움짤)  
+최종 성능
 
 ## Member
 ![img](./img/AiGO.jpeg)
-<table border="0" style="width: 100%; text-align: center; border: 1px solid white;">
+<table border="0" style="width: 100%; table-layout: fixed; text-align: center; border-collapse: collapse; margin: 0 auto;">
 <tr><td style="border: 1px solid white; padding: 10px;">
         <img src="./img/JiminLee.jpg" width="120" style="border-radius: 50%;"/><br><br>
         <b style="font-size:15px">이지민 (Jimin Lee)</b> <br>
