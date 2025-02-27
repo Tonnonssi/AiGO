@@ -237,7 +237,7 @@ def visualize_current_policy(policy, state, next_action=None, ax=None, agent_typ
     # BuPu
     ax.set_title("current Policy")
 
-def visualize_pack(agent_type, state, visit, policy, next_action, step=0, path=None, download=False, show=False):
+def visualize_pack(agent_type, state, visit, policy, next_action, step=0, path=None, download=False, show=True):
     '''
     visualize 3 : omok board, n visits, current policy
     '''

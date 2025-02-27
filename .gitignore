@@ -5,4 +5,5 @@
 *.vscode
 *generate_md.py
 *.json
-*.sample.md
+*sample.md
+*battle.ipynb

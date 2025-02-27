@@ -1,23 +1,42 @@
 import os
 
 # game info # 
+'''
+It contains info of Omok game env.
+'''
 STATE_SHAPE = (9, 9) 
 N_ACTIONS = STATE_SHAPE[0]*STATE_SHAPE[1]
 ACTION_SPACE = range(N_ACTIONS)
 WINNING_CONDITION = 5
 
 # file setting #
-D_NAME = 'model'
+'''
+It contains info of root file setting and new file to save params and visualizations.
+'''
+P_NAME = '24-2-Omok'
+D_NAME = 'result'
 F_NAME = 'Omok_4'
 F_CWD = os.path.abspath(os.path.join(os.getcwd(), ".."))
-F_PATH = f"{F_CWD}/{D_NAME}/{F_NAME}"
+F_PATH = f"{F_CWD}/{P_NAME}/{D_NAME}/{F_NAME}"
 
 # state info #
+'''
+STATE_DIM can choose the dimension of state. 
+For more information, go to the Omok/state.py. 
+
+ALLOW_TRANSPOSE ensures that the state-policy remains invariant under transposition, 
+maintaining symmetry invariance when MCTS expands.
+
+DATA_AGUMENTATION expands the single self play into 8 various form to maintain symmetry invariance.
+'''
 STATE_DIM = 4 # (2,3,4,5)
-ALLOW_TRANSPOSE = True 
+ALLOW_TRANSPOSE = False 
 DATA_AGUMENTATION = True 
 
 # count #
+'''
+params of size-count.
+'''
 TOTAL_SELFPLAY = 2000
 EVAL_SELFPLAY = 20  
 N_PLAYOUT = 400
@@ -25,6 +44,9 @@ TRAIN_EPOCHS = 100
 MEM_SIZE = 30000
 
 # nn #
+'''
+params of nn(ResNet)
+'''
 N_KERNEL = 128
 N_RESIDUAL_BLOCK = 10
 BATCH_SIZE = 512 
