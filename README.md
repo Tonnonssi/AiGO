@@ -92,9 +92,10 @@ In matches against humans, the model effectively defended against three-in-a-row
 ## Member
 ![img](./img/AiGO.jpeg)
 
-<table>
-<tr><td align="center" width="33%" style="padding: 10px;">
-        <img src="./img/JiminLee.jpg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+
+<table width="100%">
+<tr><td align="center" width="33%" style="padding: 15px;">
+        <img src="./img/JiminLee.jpg" width="100%" style="max-width: 200px; border-radius: 10px;"/><br><br> 
         <b>이지민 (Jimin Lee)</b> <br>
         <span style="color: gray; font-size:13px;">👑 팀장  AI • Robotics • Web</span> <br><br>
         <a href="https://github.com/Tonnonssi">
@@ -104,8 +105,8 @@ In matches against humans, the model effectively defended against three-in-a-row
             <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
         </a>
     </td>
-    <td align="center" width="33%" style="padding: 10px;">
-        <img src="./img/DoHeeKim.jpeg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+    <td align="center" width="33%" style="padding: 15px;">
+        <img src="./img/DoHeeKim.jpeg" width="100%" style="max-width: 200px; border-radius: 10px;"/><br><br> 
         <b>김도희 (DoHee Kim)</b> <br>
         <span style="color: gray; font-size:13px;">팀원  AI • CV</span> <br><br>
         <a href="https://github.com/doheek1m">
@@ -115,8 +116,8 @@ In matches against humans, the model effectively defended against three-in-a-row
             <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
         </a>
     </td>
-    <td align="center" width="33%" style="padding: 10px;">
-        <img src="./img/HyunseoKim.jpeg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+    <td align="center" width="33%" style="padding: 15px;">
+        <img src="./img/HyunseoKim.jpeg" width="100%" style="max-width: 200px; border-radius: 10px;"/><br><br> 
         <b>김현서 (Hyunseo Kim)</b> <br>
         <span style="color: gray; font-size:13px;">팀원  Robotics</span> <br><br>
         <a href="https://github.com/HyunseoKim812">
@@ -126,8 +127,8 @@ In matches against humans, the model effectively defended against three-in-a-row
             <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
         </a>
     </td>
-    </tr><tr><td align="center" width="33%" style="padding: 10px;">
-        <img src="./img/SeungyeonLee.jpeg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+    </tr><tr><td align="center" width="33%" style="padding: 15px;">
+        <img src="./img/SeungyeonLee.jpeg" width="100%" style="max-width: 200px; border-radius: 10px;"/><br><br> 
         <b>이승연 (Seungyeon Lee)</b> <br>
         <span style="color: gray; font-size:13px;">팀원  AI • Robotics</span> <br><br>
         <a href="https://github.com/sabina381">
@@ -137,8 +138,8 @@ In matches against humans, the model effectively defended against three-in-a-row
             <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
         </a>
     </td>
-    <td align="center" width="33%" style="padding: 10px;">
-        <img src="./img/EunnaLee.jpeg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+    <td align="center" width="33%" style="padding: 15px;">
+        <img src="./img/EunnaLee.jpeg" width="100%" style="max-width: 200px; border-radius: 10px;"/><br><br> 
         <b>이은나 (Eunna Lee)</b> <br>
         <span style="color: gray; font-size:13px;">팀원  AI • CV</span> <br><br>
         <a href="https://github.com/Eunnaeooi">
@@ -148,8 +149,8 @@ In matches against humans, the model effectively defended against three-in-a-row
             <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
         </a>
     </td>
-    <td align="center" width="33%" style="padding: 10px;">
-        <img src="./img/JungyeonLee.jpeg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+    <td align="center" width="33%" style="padding: 15px;">
+        <img src="./img/JungyeonLee.jpeg" width="100%" style="max-width: 200px; border-radius: 10px;"/><br><br> 
         <b>이정연 (Jungyeon Lee)</b> <br>
         <span style="color: gray; font-size:13px;">팀원  AI </span> <br><br>
         <a href="https://github.com/LeeJungYeonn">
