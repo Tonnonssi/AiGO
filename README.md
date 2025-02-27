@@ -93,7 +93,7 @@ In matches against humans, the model effectively defended against three-in-a-row
 ![img](./img/AiGO.jpeg)
 <table border="0" style="width: 100%; text-align: center; border-collapse: collapse;">
 <tr><td style="border: 1px solid white; padding: 15px; width: 33%;">
-        <img src="./img/JiminLee.jpg" style="border-radius: 50%;"/><br><br> 
+        <img src="./img/JiminLee.jpg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"/><br><br> 
         <b style="font-size:15px">이지민 (Jimin Lee)</b> <br>
         <span style="color: gray; font-size:13px;">👑 팀장  AI • Robotics • Web</span> <br><br>
         <a href="https://github.com/Tonnonssi">
@@ -104,7 +104,7 @@ In matches against humans, the model effectively defended against three-in-a-row
         </a>
     </td>
     <td style="border: 1px solid white; padding: 15px; width: 33%;">
-        <img src="./img/DoHeeKim.jpeg" style="border-radius: 50%;"/><br><br> 
+        <img src="./img/DoHeeKim.jpeg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"/><br><br> 
         <b style="font-size:15px">김도희 (DoHee Kim)</b> <br>
         <span style="color: gray; font-size:13px;">팀원  AI • CV</span> <br><br>
         <a href="https://github.com/doheek1m">
@@ -115,7 +115,7 @@ In matches against humans, the model effectively defended against three-in-a-row
         </a>
     </td>
     <td style="border: 1px solid white; padding: 15px; width: 33%;">
-        <img src="./img/HyunseoKim.jpeg" style="border-radius: 50%;"/><br><br> 
+        <img src="./img/HyunseoKim.jpeg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"/><br><br> 
         <b style="font-size:15px">김현서 (Hyunseo Kim)</b> <br>
         <span style="color: gray; font-size:13px;">팀원  Robotics</span> <br><br>
         <a href="https://github.com/HyunseoKim812">
@@ -126,7 +126,7 @@ In matches against humans, the model effectively defended against three-in-a-row
         </a>
     </td>
     </tr><tr><td style="border: 1px solid white; padding: 15px; width: 33%;">
-        <img src="./img/SeungyeonLee.jpeg" style="border-radius: 50%;"/><br><br> 
+        <img src="./img/SeungyeonLee.jpeg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"/><br><br> 
         <b style="font-size:15px">이승연 (Seungyeon Lee)</b> <br>
         <span style="color: gray; font-size:13px;">팀원  AI • Robotics</span> <br><br>
         <a href="https://github.com/sabina381">
@@ -137,7 +137,7 @@ In matches against humans, the model effectively defended against three-in-a-row
         </a>
     </td>
     <td style="border: 1px solid white; padding: 15px; width: 33%;">
-        <img src="./img/EunnaLee.jpeg" style="border-radius: 50%;"/><br><br> 
+        <img src="./img/EunnaLee.jpeg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"/><br><br> 
         <b style="font-size:15px">이은나 (Eunna Lee)</b> <br>
         <span style="color: gray; font-size:13px;">팀원  AI • CV</span> <br><br>
         <a href="https://github.com/Eunnaeooi">
@@ -148,7 +148,7 @@ In matches against humans, the model effectively defended against three-in-a-row
         </a>
     </td>
     <td style="border: 1px solid white; padding: 15px; width: 33%;">
-        <img src="./img/JungyeonLee.jpeg" style="border-radius: 50%;"/><br><br> 
+        <img src="./img/JungyeonLee.jpeg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"/><br><br> 
         <b style="font-size:15px">이정연 (Jungyeon Lee)</b> <br>
         <span style="color: gray; font-size:13px;">팀원  AI </span> <br><br>
         <a href="https://github.com/LeeJungYeonn">
