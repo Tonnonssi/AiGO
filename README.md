@@ -77,7 +77,7 @@ torch                     2.5.1
   use `interact.ipynb` file.  
 
 ## Result 
-📗 [Report (KR)]()  
+### 📗 [Report (KR)](./img/report.pdf)  
 
 ### In the Real World
 ![img/Omok.gif](./img/Omok.gif)   
@@ -163,6 +163,10 @@ In matches against humans, the model effectively defended against three-in-a-row
     </tr></table>
 
 ## Reference
-- [https://github.com/Jpub/AlphaZero.git](https://github.com/Jpub/AlphaZero.git)  
-- [https://github.com/junxiaosong/AlphaZero_Gomoku.git](https://github.com/junxiaosong/AlphaZero_Gomoku.git)   
-- [https://github.com/reinforcement-learning-kr/alpha_omok.git](https://github.com/reinforcement-learning-kr/alpha_omok.git)  
+[1] Silver, D., Schrittwieser, J., Simonyan, K. et al. “Mastering the game of Go without human knowledge”. Nature 550, 354–359 (2017). https://doi.org/10.1038/nature24270  
+
+[2] Jpub, "AlphaZero," GitHub repository, Available: https://github.com/Jpub/AlphaZero.git. [Accessed: Feb. 27, 2025].  
+
+[3] Junxiaosong, "AlphaZero_Gomoku," GitHub repository, Available: https://github.com/junxiaosong/AlphaZero_Gomoku.git. [Accessed: Feb. 27, 2025].  
+
+[4] Reinforcement Learning KR, "Alpha Omok," GitHub repository, Available: https://github.com/reinforcement-learning-kr/alpha_omok.git. [Accessed: Feb. 27, 2025].  
