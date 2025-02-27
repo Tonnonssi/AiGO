@@ -22,7 +22,7 @@ class ControlRobotArm:
 
         # Tracking values 
         # current position (list) : [ waist, shoulder, elbow, wrist ]
-        self.current_position = initial_position if initial_position is not None else self.stay_position 
+        self.current_position = initial_position if initial_position is not None else self.stay_position[:]
         self.vacuum_on = False
 
         # Serial setting 
@@ -47,17 +47,23 @@ class ControlRobotArm:
         coord_absolute_angles = self.target_positions_df.loc[coord_idx].tolist()
 
         # 1. back to start to pick stone 
-        self.back_to_start()
+        # self.back_to_start()
 
         # 2. vacuum on 
         self.vacuum_on = True
         self.send_to_robot(self.current_position + [int(self.vacuum_on)])
 
         # update current position 
-        self.current_position = coord_absolute_angles
+        self.current_position = coord_absolute_angles[:]
         print(f"{coord}'s angle : {self.current_position}")
 
-        # 3. move to coord
+        # 3. 
+        self.current_position[1] -= 15
+        self.current_position[2] += 15
+        self.send_to_robot(self.current_position + [int(self.vacuum_on)])
+
+        # move to coord
+        self.current_position = coord_absolute_angles[:]
         self.send_to_robot(self.current_position + [int(self.vacuum_on)]) 
 
         # 4. vacuum off 
@@ -85,19 +91,20 @@ class ControlRobotArm:
         # self.serial.flush()  # 버퍼 비우기
         time.sleep(2)  # 데이터 전송 안정화
         
-        print("Sent:", data_str)  
+        # print("Sent:", data_str)  
         # self.waiting_robot()
 
 
     def back_to_start(self):
         self.send_to_robot(self.start_position + [int(self.vacuum_on)])
         self.current_position = self.start_position
-        print(f"starting point's angle : {self.current_position}")
+        # print(f"starting point's angle : {self.current_position}")
 
     def back_to_stay(self):
-        self.send_to_robot(self.stay_position + [int(self.vacuum_on)])
-        self.current_position = self.stay_position
-        print(f"stay point's angle : {self.current_position}")
+        stay_position = [0,90,90,90]
+        self.send_to_robot(stay_position + [int(self.vacuum_on)])
+        self.current_position = stay_position[:]
+        # print(f"stay point's angle : {self.current_position}")
 
     def grasp_stone(self, position=None):
         position = self.start_position if position is None else position
@@ -109,6 +116,44 @@ class ControlRobotArm:
         position = self.start_position if position is None else position
         self.vacuum_on = False
         self.send_to_robot(position + [int(self.vacuum_on)])
+
+    def move_by_angle(self, coord:tuple, angles:list):
+        print("start")
+        # coord 
+        coord_idx = f"{coord[0]},{coord[1]}" #   ex : 3,4
+        coord_absolute_angles = angles
+
+        # 1. back to start to pick stone 
+        # self.back_to_start()
+
+        # 2. vacuum on 
+        self.vacuum_on = True
+        self.send_to_robot(self.current_position + [int(self.vacuum_on)])
+
+        # update current position 
+        self.current_position = coord_absolute_angles[:]
+        print(f"{coord}'s angle : {self.current_position}")
+
+        # 3. 
+        self.current_position[1] -= 15
+        self.current_position[2] += 15
+        self.send_to_robot(self.current_position + [int(self.vacuum_on)])
+
+        # move to coord
+        self.current_position = coord_absolute_angles[:]
+        self.send_to_robot(self.current_position + [int(self.vacuum_on)]) 
+
+        # 4. vacuum off 
+        self.vacuum_on = False
+        self.send_to_robot(self.current_position + [int(self.vacuum_on)])
+
+        # 5. up 
+        self.current_position[1] -= 15
+        self.current_position[2] += 15
+        self.send_to_robot(self.current_position + [int(self.vacuum_on)])
+        # 6. go back to stay position
+        self.back_to_stay()
+
         
 
     def waiting_robot(self):
@@ -120,9 +165,7 @@ class ControlRobotArm:
 
 if __name__=="__main__":
 
-    controller = ControlRobotArm()
-    # controller.grasp_stone(controller.stay_position)
-    # time.sleep(20)
-    # controller.ungrasp_stone(controller.stay_position)
-    coord = (3,3)
+    controller = ControlRobotArm(serial_path='/dev/cu.usbserial-110')
+    coord = (3,4)
     controller.move_to_coord(coord)
+    controller.move_by_angle(coord=(3,4), angles=[80,168,160,55]) # 

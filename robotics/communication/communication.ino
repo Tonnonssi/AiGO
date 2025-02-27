@@ -8,7 +8,7 @@ Servo shoulder;
 Servo elbow;
 Servo wrist;
 
-int waist_angle = 14;
+int waist_angle = 10;
 int shoulder_angle = 104;
 int elbow_angle = 48;
 int wrist_angle = 15;
