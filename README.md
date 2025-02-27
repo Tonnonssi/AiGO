@@ -91,96 +91,73 @@ In matches against humans, the model effectively defended against three-in-a-row
 
 ## Member
 ![img](./img/AiGO.jpeg)
-<table border="0" style="width: 100%; text-align: center; border-collapse: collapse;">
-<tr><td style="border: 1px solid #ddd; padding: 15px; width: 33%; min-height: 250px; vertical-align: top;">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%;">
-            <img src="./img/JiminLee.jpg" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover;"/><br> 
-            <b style="font-size:15px">이지민 (Jimin Lee)</b> <br>
-            <span style="color: gray; font-size:13px;">👑 팀장  AI • Robotics • Web</span> <br><br>
-            <div style="display: flex; gap: 5px; justify-content: center;">
-                <a href="https://github.com/Tonnonssi">
-                    <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
-                </a> 
-                <a href="mailto:tonnonssi@gmail.com">
-                    <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
-                </a>
-            </div>
-        </div>
+
+<table>
+<tr><td align="center" width="33%" style="padding: 10px;">
+        <img src="./img/JiminLee.jpg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+        <b>이지민 (Jimin Lee)</b> <br>
+        <span style="color: gray; font-size:13px;">👑 팀장  AI • Robotics • Web</span> <br><br>
+        <a href="https://github.com/Tonnonssi">
+            <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:tonnonssi@gmail.com">
+            <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
     </td>
-    <td style="border: 1px solid #ddd; padding: 15px; width: 33%; min-height: 250px; vertical-align: top;">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%;">
-            <img src="./img/DoHeeKim.jpeg" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover;"/><br> 
-            <b style="font-size:15px">김도희 (DoHee Kim)</b> <br>
-            <span style="color: gray; font-size:13px;">팀원  AI • CV</span> <br><br>
-            <div style="display: flex; gap: 5px; justify-content: center;">
-                <a href="https://github.com/doheek1m">
-                    <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
-                </a> 
-                <a href="mailto:ellakelly1222@gmail.com">
-                    <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
-                </a>
-            </div>
-        </div>
+    <td align="center" width="33%" style="padding: 10px;">
+        <img src="./img/DoHeeKim.jpeg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+        <b>김도희 (DoHee Kim)</b> <br>
+        <span style="color: gray; font-size:13px;">팀원  AI • CV</span> <br><br>
+        <a href="https://github.com/doheek1m">
+            <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:ellakelly1222@gmail.com">
+            <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
     </td>
-    <td style="border: 1px solid #ddd; padding: 15px; width: 33%; min-height: 250px; vertical-align: top;">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%;">
-            <img src="./img/HyunseoKim.jpeg" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover;"/><br> 
-            <b style="font-size:15px">김현서 (Hyunseo Kim)</b> <br>
-            <span style="color: gray; font-size:13px;">팀원  Robotics</span> <br><br>
-            <div style="display: flex; gap: 5px; justify-content: center;">
-                <a href="https://github.com/HyunseoKim812">
-                    <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
-                </a> 
-                <a href="mailto:rlagustj812@gmail.com">
-                    <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
-                </a>
-            </div>
-        </div>
+    <td align="center" width="33%" style="padding: 10px;">
+        <img src="./img/HyunseoKim.jpeg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+        <b>김현서 (Hyunseo Kim)</b> <br>
+        <span style="color: gray; font-size:13px;">팀원  Robotics</span> <br><br>
+        <a href="https://github.com/HyunseoKim812">
+            <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:rlagustj812@gmail.com">
+            <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
     </td>
-    </tr><tr><td style="border: 1px solid #ddd; padding: 15px; width: 33%; min-height: 250px; vertical-align: top;">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%;">
-            <img src="./img/SeungyeonLee.jpeg" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover;"/><br> 
-            <b style="font-size:15px">이승연 (Seungyeon Lee)</b> <br>
-            <span style="color: gray; font-size:13px;">팀원  AI • Robotics</span> <br><br>
-            <div style="display: flex; gap: 5px; justify-content: center;">
-                <a href="https://github.com/sabina381">
-                    <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
-                </a> 
-                <a href="mailto:sabina2378@ewhain.net">
-                    <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
-                </a>
-            </div>
-        </div>
+    </tr><tr><td align="center" width="33%" style="padding: 10px;">
+        <img src="./img/SeungyeonLee.jpeg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+        <b>이승연 (Seungyeon Lee)</b> <br>
+        <span style="color: gray; font-size:13px;">팀원  AI • Robotics</span> <br><br>
+        <a href="https://github.com/sabina381">
+            <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:sabina2378@ewhain.net">
+            <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
     </td>
-    <td style="border: 1px solid #ddd; padding: 15px; width: 33%; min-height: 250px; vertical-align: top;">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%;">
-            <img src="./img/EunnaLee.jpeg" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover;"/><br> 
-            <b style="font-size:15px">이은나 (Eunna Lee)</b> <br>
-            <span style="color: gray; font-size:13px;">팀원  AI • CV</span> <br><br>
-            <div style="display: flex; gap: 5px; justify-content: center;">
-                <a href="https://github.com/Eunnaeooi">
-                    <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
-                </a> 
-                <a href="mailto:len_318@ewha.ac.kr">
-                    <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
-                </a>
-            </div>
-        </div>
+    <td align="center" width="33%" style="padding: 10px;">
+        <img src="./img/EunnaLee.jpeg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+        <b>이은나 (Eunna Lee)</b> <br>
+        <span style="color: gray; font-size:13px;">팀원  AI • CV</span> <br><br>
+        <a href="https://github.com/Eunnaeooi">
+            <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:len_318@ewha.ac.kr">
+            <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
     </td>
-    <td style="border: 1px solid #ddd; padding: 15px; width: 33%; min-height: 250px; vertical-align: top;">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%;">
-            <img src="./img/JungyeonLee.jpeg" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover;"/><br> 
-            <b style="font-size:15px">이정연 (Jungyeon Lee)</b> <br>
-            <span style="color: gray; font-size:13px;">팀원  AI </span> <br><br>
-            <div style="display: flex; gap: 5px; justify-content: center;">
-                <a href="https://github.com/LeeJungYeonn">
-                    <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
-                </a> 
-                <a href="mailto:leejungyeon@ewha.ac.kr">
-                    <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
-                </a>
-            </div>
-        </div>
+    <td align="center" width="33%" style="padding: 10px;">
+        <img src="./img/JungyeonLee.jpeg" width="120px" height="120px" style="border-radius: 50%;"/><br><br> 
+        <b>이정연 (Jungyeon Lee)</b> <br>
+        <span style="color: gray; font-size:13px;">팀원  AI </span> <br><br>
+        <a href="https://github.com/LeeJungYeonn">
+            <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+        </a> 
+        <a href="mailto:leejungyeon@ewha.ac.kr">
+            <img src="https://img.shields.io/badge/gmail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
+        </a>
     </td>
     </tr></table>
 
