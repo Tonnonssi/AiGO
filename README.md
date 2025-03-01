@@ -5,7 +5,7 @@ This project presents a **dual-agent Gomoku game**, where a 4-DOF robotic arm (e
 ```
 📂
 - Omok       # AlphaZero-based Gomoku AI
-- cv         # Computer vision module for real-world interaction
+- vision     # Computer vision module for real-world interaction
 - robotics   # Robotic arm control for physical gameplay
 - utils      # Utility functions
 - models     # Trained models and loading modules
